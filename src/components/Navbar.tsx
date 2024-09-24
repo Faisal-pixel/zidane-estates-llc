@@ -67,7 +67,7 @@ const Navbar = () => {
       </nav>
 
       <div
-        className={`w-full h-screen bg-white fixed top-0 left-0 transform transition-all duration-500 md:hidden ${
+        className={`w-full h-screen bg-white fixed top-0 left-0 transform transition-all duration-1000 md:hidden ${
           isOpen ? "translate-y-0 opacity-100" : "opacity-0 -translate-y-full"
         }`}
       >
