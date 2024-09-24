@@ -8,7 +8,7 @@ import { AvatarIcon } from "@radix-ui/react-icons";
 
 // type Props = {};
 
-const page = () => {
+const Blog = () => {
   const [heart, setHeart] = useState(false);
   return (
     <section id="all-posts" className="md:mx-[14rem]">
@@ -112,4 +112,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Blog;
