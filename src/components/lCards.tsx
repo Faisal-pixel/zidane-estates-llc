@@ -21,9 +21,9 @@ const LCards = ({
 }: Props) => {
     const [heart, setHeart] = useState(false);
   return (
-    <div className="border basis-1/3 border-blue-500">
+    <div className="border basis-1/3 border-blue-500 sm:mx-24 md:mx-0">
       <div className="flex gap-x-6">
-        <Image src={imageUrl} alt={alt} width={443} height={443} />
+        <Image src={imageUrl} className="w-full" alt={alt} width={443} height={443} />
       </div>
 
       <div className="flex flex-col px-6 pt-7 pb-6">

@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="bg-white py-10 mb-14 mr-32 mt-12">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-start">
+    <footer className="bg-white py-10 mb-14 mt-12 mx-4 md:mx-0 md:mr-32">
+      <div className="container mx-auto flex flex-col  md:flex-row justify-between md:items-start">
         {/* Left Section */}
         <div>
           <h2 className="text-3xl font-normal mb-4">ZIDANE ESTATES LLC</h2>

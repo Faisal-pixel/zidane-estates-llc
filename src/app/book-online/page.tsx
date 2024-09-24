@@ -37,13 +37,13 @@ export default function BookOnline() {
   ];
 
   return (
-    <div className="mx-[278px]">
+    <div className="w-[80%] mx-auto md:w-full md:mx-[278px]">
       <div className="container mx-auto py-12">
-        <h1 className="text-3xl font-bold text-center mb-10">Our Services</h1>
+        <h1 className="text-3xl text-center mb-10">Our Services</h1>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-8">
           {services.map((service) => (
-            <div key={service.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div key={service.id} className="bg-white border border-gray-400 shadow-md overflow-hidden">
               <Image
                 src={service.image}
                 alt={service.title}

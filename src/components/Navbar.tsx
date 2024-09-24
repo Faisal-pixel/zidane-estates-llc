@@ -2,7 +2,7 @@
 import { Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 
 // type Props = {
 //     links: string[]
@@ -16,23 +16,16 @@ const navItems = [
 
 const Navbar = () => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
-      <nav className="">
+      <nav className="hidden md:block">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-lg font-bold">Zidane Estates LLC</h1>
           </div>
-          <div
-            onClick={() => setIsOpen(!isOpen)}
-            className="cursor-pointer z-30 md:hidden"
-          >
-            {!isOpen ? <Menu /> : <X />}
-          </div>
 
-          {/* MEDIUM SCREEN AND ABOVE */}
-          <div className="hidden space-x-5 md:flex">
+          <div className="flex space-x-5">
             <ul className="flex space-x-7 self-center">
               {navItems.map((item) => (
                 <li key={item.href}>
@@ -60,23 +53,37 @@ const Navbar = () => {
         </div>
         <div className="mb-[10px] border-t border-black mt-1" />
       </nav>
-      
-        <nav className={`max-w-[90%] mx-auto fixed flex flex-col z-20 h-full w-full bg-white transform transition-all duration-500 -translate-y-[150%] opacity-0 ${isOpen && "translate-y-0 opacity-100"}  md:hidden"`}>
-          {
-            isOpen && (
-              <div className="">
-                <div className="relative flex">
+
+      <nav className="flex mx-4 justify-between md:mx-0 md:hidden">
+        <div>
+          <h1 className="text-lg font-bold">Zidane Estates LLC</h1>
+        </div>
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className="cursor-pointer z-30 md:hidden"
+        >
+          {!isOpen ? <Menu /> : <X />}
+        </div>
+      </nav>
+
+      <div
+        className={`w-full h-screen bg-white fixed top-0 left-0 transform transition-all duration-500  ${
+          isOpen ? "translate-y-0 opacity-100" : "opacity-0 -translate-y-full"
+        }`}
+      >
+        <div className="flex flex-col mt-12 mx-5 h-full">
+          <div className="relative flex">
             <Search className="w-4 h-4 self-center" />
             <input
-              className="px-3 py-2 w-full outline-none"
+              className="px-3 py-2 outline-none w-full"
               type="search"
               placeholder="Search..."
             />
           </div>
-          <div>
-            <ul className="flex flex-col items-center space-y-5">
+
+          <ul className="flex flex-col self-center mt-4 gap-y-6">
               {navItems.map((item) => (
-                <li key={item.href} className="text-xl">
+                <li key={item.href} className="text-center text-xl">
                   <Link
                     href={item.href}
                     passHref
@@ -89,11 +96,8 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-          </div>
-              </div>
-            )
-          }
-        </nav>
+        </div>
+      </div>
     </>
   );
 };

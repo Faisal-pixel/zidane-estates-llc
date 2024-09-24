@@ -11,11 +11,11 @@ type Props = {};
 const page = (props: Props) => {
   const [heart, setHeart] = useState(false);
   return (
-    <section id="all-posts" className="mx-[14rem]">
-      <div className="flex justify-between px-5 h-[5rem]">
+    <section id="all-posts" className="md:mx-[14rem]">
+      <div className="flex justify-between px-5 py-2 bg-[rgb(23,13,242)]">
         <div className="w-auto">
           <div className="h-full flex items-center">
-            <span>All Posts</span>
+            <span className="text-white">Blog</span>
           </div>
         </div>
 
@@ -24,16 +24,16 @@ const page = (props: Props) => {
             href=""
             className="inline-block px-8 py-2 border border-[rgb(23,13,242)]"
           >
-            <span className="text-[rgb(23,13,242)]">Log in/ Sign Up</span>
+            <span className="text-white md:text-[rgb(23,13,242)]">Log in/ Sign Up</span>
           </Link>
         </div>
       </div>
 
       <div className="">
-        <div className="flex flex-col gap-y-7 mt-5 w-[90%] mx-auto">
+        <div className="flex flex-col gap-y-7 md:mt-5 md:w-[90%] md:mx-auto">
           {[1, 2, 3].map((_, index) => (
-            <div className="flex max-h-[21.25rem]">
-              <div className="basis-1/2">
+            <div className="flex flex-col md:max-h-[21.25rem] md:flex-row">
+              <div className="basis-1/2 h-10">
                 <Image
                   src={KeyImg}
                   alt="form-listings-to-key-img"

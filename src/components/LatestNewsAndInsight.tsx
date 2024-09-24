@@ -14,7 +14,7 @@ const LatestNewsAndInsight = ({ cards, headingTextStyle }: Props) => {
         <h2 className="">LATEST NEWS & INSIGHTS</h2>
       </div>
 
-      <div className="flex gap-x-6">
+      <div className="flex flex-col space-y-6 md:space-y-0 md:gap-x-6 md:flex-row">
         {cards.map((card, index) => (
           <LCards key={index} {...card} />
         ))}
