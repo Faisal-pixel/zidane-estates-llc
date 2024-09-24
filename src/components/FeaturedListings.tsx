@@ -40,7 +40,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import Image from 'next/image';
 
 export function CarouselSize() {
   return (

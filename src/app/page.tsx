@@ -3,7 +3,6 @@ import LatestNewsAndInsight from "@/components/LatestNewsAndInsight";
 import { LCard } from "@/types";
 import LCardImg from "@/images/lCard.jpg";
 import ScheduleAConsolation from "@/components/ScheduleAConsolation";
-import BookOnline from "./book-online/page";
 import FeaturedListings from "@/components/FeaturedListings";
 
 const cards: LCard[] = [

@@ -6,9 +6,9 @@ import Image from "next/image";
 import { Crown, Dot, EllipsisVertical, Heart } from "lucide-react";
 import { AvatarIcon } from "@radix-ui/react-icons";
 
-type Props = {};
+// type Props = {};
 
-const page = (props: Props) => {
+const page = () => {
   const [heart, setHeart] = useState(false);
   return (
     <section id="all-posts" className="md:mx-[14rem]">
@@ -32,7 +32,7 @@ const page = (props: Props) => {
       <div className="">
         <div className="flex flex-col gap-y-7 md:mt-5 md:w-[90%] md:mx-auto">
           {[1, 2, 3].map((_, index) => (
-            <div className="flex flex-col md:max-h-[21.25rem] md:flex-row">
+            <div key={index} className="flex flex-col md:max-h-[21.25rem] md:flex-row">
               <div className="basis-1/2 h-10">
                 <Image
                   src={KeyImg}

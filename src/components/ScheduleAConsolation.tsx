@@ -1,6 +1,4 @@
-import Link from 'next/link';
-import React from 'react'
-import CustomBlueButton from './ui/CustomBlueButton';
+import React from 'react';
 import DifferentTypes from './schedule_consulation/differentTypes';
 
 type Props = {

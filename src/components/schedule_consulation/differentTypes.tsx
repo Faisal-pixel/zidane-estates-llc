@@ -3,7 +3,6 @@ import React from "react";
 import CustomBlueButton from "../ui/CustomBlueButton";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
@@ -62,7 +61,7 @@ const DifferentTypes = ({ type, to, price }: Props) => {
           <p className="font-light basis-[27%]">{price}</p>
         </div>
         <div className="">
-          <CustomBlueButton to={to} children="Book Now" />
+          <CustomBlueButton to={to} >Book Now</CustomBlueButton>
         </div>
       </div>
 
