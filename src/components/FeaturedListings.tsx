@@ -76,7 +76,7 @@ export function CarouselSize() {
 
 const FeaturedListings = ({headingTextStyle}: Props) => {
   return (
-    <section id='featured-listings'>
+    <section id='featured-listings' className='mx-4 md:mx-0'>
       <div className={headingTextStyle}>
             <h2>FEATURED LISTINGS</h2>
         </div>
