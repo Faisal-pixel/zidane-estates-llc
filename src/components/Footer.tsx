@@ -1,6 +1,23 @@
+'use client';
+import { motion } from 'framer-motion';
 export default function Footer() {
   return (
-    <footer className="bg-white py-10 mb-14 mt-12 mx-4 md:mx-0 md:mr-32">
+    <motion.footer
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 2,
+      ease: "easeOut",
+    }}
+
+    className="bg-white py-10 mb-14 mt-12 mx-4 md:mx-0 md:mr-32">
       <div className="container mx-auto flex flex-col  md:flex-row justify-between md:items-start">
         {/* Left Section */}
         <div>
@@ -30,6 +47,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

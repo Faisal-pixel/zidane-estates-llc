@@ -1,16 +1,27 @@
 import React from 'react';
 import Image from 'next/image';
 import HeroImg from "@/images/heros.jpg"
+import { motion } from 'framer-motion';
 
-// type Props = {}
+type Props = {
+  initial?: {
+    opacity: number;
+  };
+  whileInView?: {
+    opacity: number;
+  };
+  transition?: {
+    duration: number;
+  };
+};
 
-const Hero = () => {
+const Hero = ({...props}: Props) => {
   return (
     <div>
-        <div className='mx-4 md:mx-0'>
+        <motion.div {...props} className='mx-4 md:mx-0'>
             <h1 className='mt-[62px] mb-2 text-5xl md:text-6xl'>REAL ESTATE MANAGER</h1>
             <p className="mb-[31px] text-2xl">Find or Build Your Dream Home</p>
-        </div>
+        </motion.div>
 
         <div> 
             <Image  src={HeroImg} alt="hero" />

@@ -1,9 +1,11 @@
+'use client'
 import Hero from "@/components/Hero";
 import LatestNewsAndInsight from "@/components/LatestNewsAndInsight";
 import { LCard } from "@/types";
 import LCardImg from "@/images/lCard.jpg";
 import ScheduleAConsolation from "@/components/ScheduleAConsolation";
 import FeaturedListings from "@/components/FeaturedListings";
+import { easeOut } from "framer-motion";
 
 const cards: LCard[] = [
   {
@@ -30,14 +32,26 @@ const cards: LCard[] = [
 ];
 
 const headingTextStyle = "text-[30px] sm:text-[40px] md:pl-[0.7rem] mt-16 mb-5 md:mb-14 md:text-[64px] text-left font-syne";
+const initial = {
+  opacity: 0
+}
+
+const whileInView={
+  opacity: 1
+}
+
+const transition={
+  duration: 2.5,
+  easeOut
+}
 
 export default function Home() {
   return (
     <div className="">
-      <Hero />
-      <LatestNewsAndInsight cards={cards} headingTextStyle={headingTextStyle} />
-      <ScheduleAConsolation headingTextStyle={headingTextStyle}/>
-      <FeaturedListings headingTextStyle={headingTextStyle}/>
+      <Hero initial={initial} whileInView={whileInView} transition={transition} />
+      <LatestNewsAndInsight initial={initial} whileInView={whileInView} transition={transition} cards={cards} headingTextStyle={headingTextStyle} />
+      <ScheduleAConsolation initial={initial} whileInView={whileInView} transition={transition} headingTextStyle={headingTextStyle}/>
+      <FeaturedListings initial={initial} whileInView={whileInView} transition={transition} headingTextStyle={headingTextStyle}/>
     </div>
   );
 }

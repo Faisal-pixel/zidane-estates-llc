@@ -1,8 +1,10 @@
+'use client'
 import Image from 'next/image';
 import BuyerConsultation from "@/images/buyerConsultation.jpg";
 import RentalPropety from "@/images/rentalPropertyTour.jpg";
 import NewConstruction from "@/images/newConstructionConsult.jpg";
 import PropertyConsultation from "@/images/propertyConsultation.jpg";
+import { motion } from 'framer-motion';
 
 export default function BookOnline() {
   const services = [
@@ -37,7 +39,21 @@ export default function BookOnline() {
   ];
 
   return (
-    <div className="w-[80%] md:w-[60%] mx-auto">
+    <motion.div
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 2,
+      ease: "easeOut",
+    }}
+    className="w-[80%] md:w-[60%] mx-auto">
       <div className="container mx-auto py-12">
         <h1 className="text-3xl text-center font-syne mb-10">Our Services</h1>
 
@@ -64,6 +80,6 @@ export default function BookOnline() {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

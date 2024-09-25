@@ -3,6 +3,7 @@ import { Menu, Search, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { motion } from 'framer-motion';
 
 // type Props = {
 //     links: string[]
@@ -19,7 +20,21 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <>
-      <nav className="hidden w-full md:block">
+      <motion.nav
+      initial={{
+        opacity: 0,
+      }}
+      whileInView={{
+        opacity: 1,
+      }}
+      viewport={{
+        once: true,
+      }}
+      transition={{
+        duration: 2,
+        ease: "easeOut",
+      }}
+      className="hidden w-full md:block">
         <div className="flex justify-between items-center w-full">
           <div className="md:w-[25.8rem] pl-3">
             <h1
@@ -59,7 +74,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="mb-[10px] border-t border-black mt-1" />
-      </nav>
+      </motion.nav>
 
       <nav className="flex mx-4 justify-between md:mx-0 md:hidden">
         <div>

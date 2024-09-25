@@ -1,8 +1,19 @@
+'use client'
 import React from 'react';
 import DifferentTypes from './schedule_consulation/differentTypes';
+import { motion } from 'framer-motion';
 
 type Props = {
     headingTextStyle?: string;
+    initial?: {
+        opacity: number;
+    };
+    whileInView?: {
+        opacity: number;
+    };
+    transition?: {
+        duration: number;
+    };
 }
 
 const differentTypes = [
@@ -28,12 +39,15 @@ const differentTypes = [
     },
 ]
 
-const ScheduleAConsolation = ({headingTextStyle}: Props) => {
+const ScheduleAConsolation = ({headingTextStyle, ...props}: Props) => {
   return (
     <section className="max-w-[90%] mx-auto md:max-w-full">
-        <div className={headingTextStyle}>
+        <motion.div
+        {...props}
+
+        className={headingTextStyle}>
             <h2>SCHEDULE A CONSULATION</h2>
-        </div>
+        </motion.div>
 
         <div className=' md:p-5'>
             {
