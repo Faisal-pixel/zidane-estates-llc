@@ -82,15 +82,15 @@ const Navbar = () => {
         </div>
         <div
           onClick={() => setIsOpen(!isOpen)}
-          className="cursor-pointer z-30 md:hidden"
+          className="cursor-pointer z-50 md:hidden"
         >
           {!isOpen ? <Menu /> : <X />}
         </div>
       </nav>
 
       <div
-        className={`w-full h-screen bg-white fixed top-0 left-0 transform transition-all duration-1000 md:hidden ${
-          isOpen ? "translate-y-0 opacity-100" : "opacity-0 -translate-y-full"
+        className={`w-full h-screen bg-white fixed z-40 top-0 left-0 transform transition-all duration-1000 md:hidden ${
+          isOpen ? "translate-y-0 opacity-100" : "opacity-0 -translate-y-[150%]"
         }`}
       >
         <div className="flex flex-col mt-12 mx-5 h-full">
