@@ -11,6 +11,7 @@ const config: Config = {
   	extend: {
 		fontFamily: {
 			syne: ['Syne', 'sans-serif'], // Add Syne to the font family
+			questrial: ['Questrial', 'sans-serif'], // Add Questrial to the font family
 		  },
   		colors: {
   			background: 'hsl(var(--background))',

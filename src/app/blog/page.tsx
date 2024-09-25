@@ -71,13 +71,13 @@ const Blog = () => {
                 <div className="group">
                   <div className="group-hover:text-[rgb(23,13,242)] transition-all">
                     <Link href="">
-                      <p className="text-[1.8rem] font-normal">
+                      <p className="text-[1.8rem] font-normal font-syne">
                         From Listings to Keys: Your Path to Homeownership
                       </p>
                     </Link>
                   </div>
-                  <div className="line-clamp-3 mt-6 cursor-pointer group-hover:text-[rgb(23,13,242)]">
-                    <p>
+                  <div className="line-clamp-3 mt-4 cursor-pointer group-hover:text-[rgb(23,13,242)]">
+                    <p className="font-questrial">
                       Are you dreaming of holding the keys to your own home one
                       day? The journey from perusing listings to unlocking the
                       door to your new home...
