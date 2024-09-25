@@ -51,11 +51,11 @@ export function CarouselSize() {
     >
       <CarouselContent>
         {carouselImages.map((_, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="basis-1/2 md:basis-1/3">
             <div className="p-1">
               <Card>
                 <CardContent className="flex items-center justify-center ">
-                <div className="relative group w-full h-[36.75rem] overflow-hidden bg-cover bg-no-repeat" style={{
+                <div className="relative group w-full h-[15rem] md:h-[25rem] lg:h-[36.75rem] overflow-hidden bg-cover bg-no-repeat" style={{
                   backgroundImage: `url(${_.imageUrl})`
                 }}>
                 

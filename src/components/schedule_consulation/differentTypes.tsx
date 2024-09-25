@@ -38,7 +38,7 @@ const DifferentTypesSmall = ({ type, to, price }: Props) => {
           <p>Card Content</p>
         </CardContent> */}
         <CardFooter className="flex items-center justify-center">
-          <Button className="w-full bg-blue-600 text-white rounded-none" asChild>
+          <Button className="w-full font-questrial text-base bg-[rgb(23,13,242)] duration-500 hover:bg-[rgb(255,235,255)] hover:text-[rgb(23,13,242)] rounded-none" asChild>
             <Link href="/login">Book Now</Link>
           </Button>
         </CardFooter>

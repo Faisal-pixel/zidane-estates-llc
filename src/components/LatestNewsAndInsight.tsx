@@ -9,7 +9,7 @@ type Props = {
 
 const LatestNewsAndInsight = ({ cards, headingTextStyle }: Props) => {
   return (
-    <section id="latest-news-and-insight">
+    <section id="latest-news-and-insight" className="max-w-[90%] mx-auto md:max-w-full">
       <div className={headingTextStyle}>
         <h2 className="">LATEST NEWS & INSIGHTS</h2>
       </div>

@@ -30,12 +30,12 @@ const differentTypes = [
 
 const ScheduleAConsolation = ({headingTextStyle}: Props) => {
   return (
-    <section>
+    <section className="max-w-[90%] mx-auto md:max-w-full">
         <div className={headingTextStyle}>
             <h2>SCHEDULE A CONSULATION</h2>
         </div>
 
-        <div className='p-5'>
+        <div className=' md:p-5'>
             {
                 differentTypes.map((type, index) => (
                     <DifferentTypes key={index} {...type} />

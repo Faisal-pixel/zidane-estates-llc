@@ -29,7 +29,7 @@ const cards: LCard[] = [
   },
 ];
 
-const headingTextStyle = "text-[30px] sm:text-[40px] text-center pl-[0.7rem] mt-16 mb-14 md:text-[64px] md:text-left";
+const headingTextStyle = "text-[30px] sm:text-[40px] md:pl-[0.7rem] mt-16 mb-5 md:mb-14 md:text-[64px] text-left font-syne";
 
 export default function Home() {
   return (
