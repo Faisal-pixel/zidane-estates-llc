@@ -9,10 +9,10 @@ export default function Footer() {
 
         {/* Right Section */}
         <div className="w-full md:w-auto">
-          <div className="mb-8 md:mb-0">
+          <div className="mb-8 md:mb-24">
             <p className="">512-782-4534</p>    
             <p className="mb-10">info@zidaneestates.com</p>
-            <p className="mb-14">11801 Domain Blvd, 3rd Floor, Austin, TX 78758</p>
+            <p className="">11801 Domain Blvd, 3rd Floor, Austin, TX 78758</p>
           </div>
           <h3 className="text-4xl font-normal mb-12 mt-5">Stay Informed</h3>
           <p className="mb-4">Enter your email here *</p>
@@ -24,7 +24,7 @@ export default function Footer() {
               placeholder="Enter your email"
               className="border-b-2 border-blue-600 focus:outline-none w-full md:w-64 mr-4"
             />
-            <button className="bg-blue-600 text-white px-4 py-2 rounded font-bold hover:bg-blue-700 transition">
+            <button className="bg-[rgb(23,13,242)] w-[8.65rem] h-[2.84rem] text-[rgb(175,172,251)] px-4 py-2  hover:text-[rgb(23,13,242)] hover:bg-[rgb(255,235,255)] transition-all duration-700">
               Subscribe
             </button>
           </div>

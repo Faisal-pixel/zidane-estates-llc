@@ -9,7 +9,7 @@ type Props = {
 const CustomBlueButton = ({children, to}: Props) => {
   return (
     <div>
-        <Link href={to || ""} className='inline-block bg-blue-600 text-white py-2 w-auto px-7'><span>{children}</span></Link>
+        <Link href={to || ""} className='inline-block bg-[rgb(23,13,242)] text-white py-2 w-auto px-7'><span>{children}</span></Link>
     </div>
   )
 }

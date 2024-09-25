@@ -37,25 +37,26 @@ export default function BookOnline() {
   ];
 
   return (
-    <div className="w-[80%] mx-auto md:w-full md:mx-[278px]">
+    <div className="w-[80%] md:w-[60%] mx-auto">
       <div className="container mx-auto py-12">
-        <h1 className="text-3xl text-center mb-10">Our Services</h1>
+        <h1 className="text-3xl text-center font-syne mb-10">Our Services</h1>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-8">
           {services.map((service) => (
-            <div key={service.id} className="bg-white border border-gray-400 shadow-md overflow-hidden">
+            <div key={service.id} className="bg-white border border-[rgb(0,0,0,0.2)] overflow-hidden">
               <Image
                 src={service.image}
                 alt={service.title}
                 width={500}
                 height={300}
-                className="w-full h-48 object-cover"
+                className="w-full object-cover"
               />
-              <div className="p-6">
-                <h2 className="text-xl font-semibold mb-2">{service.title}</h2>
-                <p className="text-gray-600">{service.time}</p>
+              <div className="p-8">
+                <h2 className="text-xl font-semibold mb-3">{service.title}</h2>
+                <div className='border-b-[0.8px] border-[rgb(0,0,0,0.2)] my-6' />
+                <p className="text-gray-600 font-bold">{service.time}</p>
                 <p className="text-gray-600 font-bold mb-4">{service.price}</p>
-                <button className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                <button className="bg-[rgb(23,13,242)] mt-5 text-white py-2 px-4 hover:bg-blue-700 transition duration-300">
                   Book Now
                 </button>
               </div>

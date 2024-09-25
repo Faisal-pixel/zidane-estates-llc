@@ -12,10 +12,11 @@ const Blog = () => {
   const [heart, setHeart] = useState(false);
   return (
     <section id="all-posts" className="md:mx-[14rem]">
-      <div className="flex justify-between px-5 py-2 bg-[rgb(23,13,242)]">
+      <div className="flex justify-between px-5 py-2 bg-[rgb(23,13,242)] md:bg-white">
         <div className="w-auto">
           <div className="h-full flex items-center">
-            <span className="text-white">Blog</span>
+            <span className="text-white md:hidden">Blog</span>
+            <span className="hidden md:inline-block">All Posts</span>
           </div>
         </div>
 
@@ -30,10 +31,10 @@ const Blog = () => {
       </div>
 
       <div className="">
-        <div className="flex flex-col gap-y-7 md:mt-5 md:w-[90%] md:mx-auto">
+        <div className="flex flex-col gap-y-7 md:mt-5 md:w-[95%] md:mx-auto">
           {[1, 2, 3].map((_, index) => (
             <div key={index} className="flex flex-col md:max-h-[21.25rem] md:flex-row">
-              <div className="basis-1/2 h-10">
+              <div className="basis-1/2 h-10 md:h-full">
                 <Image
                   src={KeyImg}
                   alt="form-listings-to-key-img"
