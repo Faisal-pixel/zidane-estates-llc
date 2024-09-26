@@ -27,7 +27,7 @@ const Blog = () => {
         ease: "easeOut",
       }}
       id="all-posts"
-      className="md:mx-[14rem]"
+      className="md:mx-[8rem] xl:mx-[14rem]"
     >
       <div className="flex justify-between px-5 py-2 bg-[rgb(23,13,242)] md:bg-white">
         <div className="w-auto">
@@ -54,9 +54,9 @@ const Blog = () => {
           {[1, 2, 3].map((_, index) => (
             <div
               key={index}
-              className="flex flex-col md:max-h-[21.25rem] md:flex-row"
+              className="flex flex-col lg:flex-row"
             >
-              <div className="basis-1/2 h-10 md:h-full">
+              <div className="basis-1/2 ">
                 <Image
                   src={KeyImg}
                   alt="form-listings-to-key-img"
