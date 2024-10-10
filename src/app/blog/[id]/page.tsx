@@ -12,6 +12,9 @@ import Image from "next/image";
 import KeyImg from "@/images/key.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
+import BlogHeaderInfo from "@/components/blog_page/BlogHeaderInfo";
+
+const paddingSet60px = "sm:px-[60px]";
 
 const BlogPage = ({ params }: { params: { id: string } }) => {
   const id = params.id;
@@ -56,7 +59,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
         <div className="flex justify-between px-5 md:px-0 py-2 bg-[rgb(23,13,242)] md:bg-white">
           <div className="w-auto">
             <div className="h-full flex items-center">
-              <span className="text-white md:hidden">Blog</span>
+              <span className="text-white md:hidden">Post</span>
               <span className="hidden md:inline-block">All Posts</span>
             </div>
           </div>
@@ -66,8 +69,8 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
               href=""
               className="inline-block px-8 py-2 border border-[rgb(23,13,242)]"
             >
-              <span className="text-white md:text-[rgb(23,13,242)]">
-                Log in/ Sign Up
+              <span className="text-white font-semibold font-questrial md:text-[rgb(23,13,242)]">
+                Sign Up
               </span>
             </Link>
           </div>
@@ -78,9 +81,14 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
         ) : (
           <div className="border py-[60px] border-[rgb(255,235,255)]">
             {/* USER INFORMATION AND BLOG TOPIC */}
-            <div className="px-[60px] ">
+            <div className={paddingSet60px}>
               <div className="w-[90%] mx-auto">
-                <div className="flex">
+                <div className="block md:hidden">
+                    <BlogHeaderInfo />
+                </div>
+
+                {/* BLOG HEADER INFO ON LARGE SCREEN BELOW */}
+                <div className="hidden md:flex">
                   <div className="flex">
                     {/* AVATAR ICON and USERNAME */}
                     <span className="flex self-center">
@@ -118,7 +126,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
             </div>
 
             {/* BLOG CONTENT */}
-            <div className="px-[60px] ">
+            <div className={paddingSet60px}>
               <div className="w-[90%] mx-auto">
                 <div className="mt-[27px]">
                   <p className="text-[18px] font-syne">
@@ -129,7 +137,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
             </div>
             {/* BLOG IMAGE */}
             {/* Later on we can check if there is an image, if there is reder the below, if not dont render */}
-            <div className="px-[60px] my-3">
+            <div className={`${paddingSet60px} my-3`}>
               <div className="w-[90%] mx-auto">
                 <figure>
                   <Image
@@ -141,7 +149,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
               </div>
             </div>
 
-            <div className="px-[60px] ">
+            <div className={paddingSet60px}>
               <div className="w-[90%] mx-auto">
                 <p className="text-[18px] font-syne">
                   {blogDetails.blogContents2}
@@ -149,7 +157,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
               </div>
             </div>
             {/* FOOTER */}
-            <div className="px-[60px]">
+            <div className={paddingSet60px}>
               <div className="w-[90%] mx-auto">
                 <div className="mt-[50px]">
                   <span className="h-[1px] bg-[rgb(255,235,255)] block"></span>
