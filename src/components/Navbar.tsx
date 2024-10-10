@@ -61,7 +61,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <div className="relative ml-9 flex gap-x-2  w-">
+            <div className="relative ml-9 flex gap-x-2 w-">
               <Search className="w-4 h-4 self-center" />
               
                 <input

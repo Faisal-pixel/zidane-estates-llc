@@ -6,5 +6,11 @@ export type LCard = {
     cardDescription: string;
     numberOfViews: number;
     alt: string;
-    
+}
+
+export type TUser = {
+    id: string;
+    name: string;
+    email: string;
+    blogs: []
 }
