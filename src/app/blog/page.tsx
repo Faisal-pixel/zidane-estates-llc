@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import KeyImg from "@/images/key.jpg";
 import Image from "next/image";
 import { Crown, Dot, EllipsisVertical, Heart } from "lucide-react";
 import { AvatarIcon } from "@radix-ui/react-icons";
@@ -71,7 +70,10 @@ const Blog = () => {
             >
               <div className="basis-1/2 ">
                 <Image
-                  src={KeyImg}
+                  src={_.blogImage as string}
+                  layout="responsive"
+                  width={443}
+                  height={443}
                   alt="form-listings-to-key-img"
                   className="h-full"
                 />

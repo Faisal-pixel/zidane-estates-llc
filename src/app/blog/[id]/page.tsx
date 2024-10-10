@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import { AvatarIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import KeyImg from "@/images/key.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import BlogHeaderInfo from "@/components/blog_page/BlogHeaderInfo";
@@ -165,7 +164,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                 <div className="w-[90%] mx-auto">
                   <figure>
                     <Image
-                      src={KeyImg}
+                      src={blogDetails.blogImage as string}
                       alt="form-listings-to-key-img"
                       className="h-full"
                     />
@@ -255,7 +254,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                     >
                       <div className="max-w-[290px] border border-[rgb(255,235,255)]">
                         <div>
-                          <Image src={KeyImg} alt="blog-image" />
+                          <Image src={_.blogImage as string} alt="blog-image" />
                         </div>
 
                         <div className="p-[24px]">
