@@ -1,16 +1,29 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KeyImg from "@/images/key.jpg";
 import Image from "next/image";
 import { Crown, Dot, EllipsisVertical, Heart } from "lucide-react";
 import { AvatarIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
+import { getAllBlogDocuments } from "@/lib/firebase";
+import { Blog as BlogType } from "./types";
 
 // type Props = {};
 
 const Blog = () => {
   const [heart, setHeart] = useState(false);
+  const [blogs, setBlogs] = useState<BlogType[] | []>([]);
+
+  useEffect(() => {
+    const getBlogs = async () => {
+      // fetch blogs
+      const response = await getAllBlogDocuments();
+      setBlogs(response);
+    }
+
+    getBlogs();
+  }, [])
   return (
     <motion.section
       initial={{
@@ -51,7 +64,7 @@ const Blog = () => {
 
       <div className="">
         <div className="flex flex-col gap-y-7 md:mt-5 md:w-[95%] md:mx-auto">
-          {[1, 2, 3].map((_, index) => (
+          {blogs.length > 0 && blogs.map((_, index) => (
             <div
               key={index}
               className="flex flex-col lg:flex-row"
@@ -72,7 +85,7 @@ const Blog = () => {
 
                     <div className="flex flex-col ml-1">
                       <div className="flex text-xs">
-                        <span>techvanb</span>
+                        <span>{_.author}</span>
                         <span className="self-center ml-1">
                           <Crown className="h-3 w-3" />
                         </span>
@@ -82,7 +95,7 @@ const Blog = () => {
                         <span className="self-center">
                           <Dot />
                         </span>
-                        <span className="self-center">2 min</span>
+                        <span className="self-center">{_.readingTime} min</span>
                       </div>
                     </div>
                   </div>
@@ -92,34 +105,32 @@ const Blog = () => {
                 </div>
                 <div className="group">
                   <div className="group-hover:text-[rgb(23,13,242)] transition-all">
-                    <Link href="">
+                    <Link href={`blog/${_.id}`}>
                       <p className="text-[1.8rem] font-normal font-syne">
-                        From Listings to Keys: Your Path to Homeownership
+                        {_.blogTopic}
                       </p>
                     </Link>
                   </div>
                   <div className="line-clamp-3 mt-4 cursor-pointer group-hover:text-[rgb(23,13,242)]">
                     <p className="font-questrial">
-                      Are you dreaming of holding the keys to your own home one
-                      day? The journey from perusing listings to unlocking the
-                      door to your new home...
+                      {_.blogContents1}
                     </p>
                   </div>
                 </div>
-                <div className="pt-3 mt-11">
+                <div className="pt-3 mt-11 text-xs">
                   <div className="mb-4 border-t-[2px] border-[rgb(161,156,161)]" />
                   <div className="flex justify-between">
                     <div className="flex gap-x-4 text-xs">
-                      <span>7 views</span>
+                      <span>{_.views} views</span>
                       <span className="cursor-pointer hover:text-[rgb(23,13,242)] transition-all">
-                        0 comments
+                        {_.comments?.length} comments
                       </span>
                     </div>
                     <div className="flex items-center cursor-pointer">
-                      <span className="ml-2"></span>
+                      <span className="ml-2">{_.likes}</span>
                       <Heart
                         onClick={() => setHeart((prevVal) => !prevVal)}
-                        className={`w-4 h-4 ${
+                        className={`w-4 h-4 ml-1 ${
                           heart && "text-red-600 fill-red-600"
                         } transition-all`}
                       />

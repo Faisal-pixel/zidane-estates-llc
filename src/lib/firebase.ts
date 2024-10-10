@@ -3,7 +3,8 @@
 import { Blog } from "@/app/blog/types";
 import { TUser } from "@/types";
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, getFirestore, query, setDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -63,4 +64,45 @@ export const getUserFromFirestore = async (userId: string) => {
     if(userSnapshot.exists()) {
         return userSnapshot.data() as TUser;
     } else return null;
+}
+
+export const getAllBlogDocuments = async () => {
+    const q = query(collection(db, "blogs"));
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => doc.data() as Blog);
+}
+
+export const addBlogToFirestore = async (blog: Blog) => {
+    if(!blog) return;
+    const blogRef = doc(db, "blogs", blog.id);
+    await setDoc(blogRef, blog, { merge: true });
+}
+
+
+// STORAGE
+
+const storage = getStorage(app)
+
+export const uploadImage = (imageFile: File): Promise<string | Error> => {
+    return new Promise((resolve, reject) => {
+        const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, imageFile)
+
+        uploadTask.on(
+            'state_changed',
+            () => {},
+            (error) => {
+                reject(error)
+            },
+            async () => {
+                try {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+                    resolve(downloadURL)
+                } catch (error) {
+                    reject(error)
+                }
+            },
+        )
+    })
 }
