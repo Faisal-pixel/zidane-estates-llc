@@ -1,3 +1,4 @@
+import { TComment } from "@/types"
 import { StaticImageData } from "next/image"
 
 export type Blog = {
@@ -12,7 +13,7 @@ export type Blog = {
     readingTime?: string
     likes?: number
     views?: number
-    comments?: Comment[]
+    comments?: TComment[]
     timestamp?: string
 }
 

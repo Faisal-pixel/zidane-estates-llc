@@ -14,3 +14,13 @@ export type TUser = {
     email: string;
     blogs: []
 }
+
+export type TComment = {
+    author: string;
+    authorId: string;
+    authorImage: string;
+    dateAdded: string;
+    commentContent: string;
+    likes: number;
+    replies: TComment[];
+}

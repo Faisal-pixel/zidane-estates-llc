@@ -11,6 +11,7 @@ import Link from "next/link";
 import { Blog } from "../types";
 import { TUser } from "@/types";
 import {
+  Camera,
   EllipsisVertical,
   Eye,
   Facebook,
@@ -18,12 +19,15 @@ import {
   Linkedin,
   LinkIcon,
   MessageSquare,
+  Smile,
+  Video,
 } from "lucide-react";
 import { AvatarIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import BlogHeaderInfo from "@/components/blog_page/BlogHeaderInfo";
+import { Gif } from "react-flaticons";
 
 const paddingSet60px = "sm:px-[60px]";
 
@@ -34,6 +38,8 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
   const [userDetails, setUserDetails] = useState<TUser | null>(null);
   const [heart, setHeart] = useState(false);
   const [blogs, setBlogs] = useState<Blog[] | []>([]);
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [commentText, setCommentText] = useState("");
 
   useEffect(() => {
     if (!id) return;
@@ -166,7 +172,9 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                     <Image
                       src={blogDetails.blogImage as string}
                       alt="form-listings-to-key-img"
-                      className="h-full"
+                      width={443}
+                      height={443}
+                      className="w-full"
                     />
                   </figure>
                 </div>
@@ -186,26 +194,42 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                     <span className="h-[1px] bg-[rgb(255,235,255)] block"></span>
                     <div className="h-[60px] flex flex-col justify-center">
                       <div className="flex gap-x-[30px]">
-                        <Link href={blogDetails.blogUrls?.facebook as string}>
+                        <Link
+                          href={
+                            (blogDetails.blogUrls?.facebook as string) || ""
+                          }
+                        >
                           <Facebook
                             strokeWidth="0.5px"
                             className="h-[19px] w-[19px] text-sm font-light fill-black"
                           />
                         </Link>
-                        <Link href={blogDetails.blogUrls?.facebook as string}>
+                        <Link
+                          href={
+                            (blogDetails.blogUrls?.facebook as string) || ""
+                          }
+                        >
                           <FontAwesomeIcon
                             size="xs"
                             icon={faXTwitter}
                             className="h-[19px] w-[19px]"
                           />
                         </Link>
-                        <Link href={blogDetails.blogUrls?.facebook as string}>
+                        <Link
+                          href={
+                            (blogDetails.blogUrls?.facebook as string) || ""
+                          }
+                        >
                           <Linkedin
                             strokeWidth="0.5px"
                             className="h-[19px] w-[19px] text-sm font-light fill-black"
                           />
                         </Link>
-                        <Link href={blogDetails.blogUrls?.facebook as string}>
+                        <Link
+                          href={
+                            (blogDetails.blogUrls?.facebook as string) || ""
+                          }
+                        >
                           <LinkIcon
                             strokeWidth="2px"
                             className="h-[19px] w-[19px] "
@@ -254,7 +278,12 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                     >
                       <div className="max-w-[290px] border border-[rgb(255,235,255)]">
                         <div>
-                          <Image src={_.blogImage as string} alt="blog-image" />
+                          <Image
+                            src={_.blogImage as string}
+                            alt="blog-image"
+                            width={443}
+                            height={443}
+                          />
                         </div>
 
                         <div className="p-[24px]">
@@ -276,7 +305,9 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                                 </span>
                                 <span className="flex ml-[16px]">
                                   <MessageSquare className="w-4 h-4" />
-                                  <span className="ml-[6px]">{_.comments?.length}</span>
+                                  <span className="ml-[6px]">
+                                    {_.comments?.length}
+                                  </span>
                                 </span>
 
                                 <span className="ml-auto">
@@ -289,6 +320,89 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+
+            {/* COMMENT SECTION */}
+            <div className="w-[90%] mx-auto">
+              <div className="max-w-[740px] mx-auto mt-10 pt-5 pb-[50px] px-[30px]">
+                <div className=" mb-4">
+                  <h2 className="font-syne text-base">
+                    {blogDetails.comments?.length + " Comments"}
+                  </h2>
+                </div>
+
+                <div>
+                  <hr className="max-w-full border border-[rgba(0,0,0,0.2)] mb-[36px]" />
+                  <div className="pb-2 flex flex-col h-full w-full">
+                    <div className="bg-clip-content bg-transparent border relative w-full">
+                      {setShowCommentInput && (
+                        <>
+                          <div className="border border-black border-transparent bg-clip-content relative w-full focus:border-[rgba(0,0,0,0.3)]">
+                            <div className="px-4 pt-4">
+                              <div className="flex flex-col overflow-hidden">
+                                <div className="contain-inline-size flex flex-1 flex-col h-full relative">
+                                  <div className="flex flex-1 flex-col text-black text-base h-full w-full">
+                                    <p
+                                      className="text-black font font-questrial text-base"
+                                      data-placeholder="Write a comment..."
+                                    ></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="py-3 px-4 justify-between w-full flex items-center">
+                              <div className="min-h-[25px] min-w-6 flex grow items-center">
+                                <div className="flex items-center gap-5">
+                                  <div className="block text-center relative">
+                                    <Smile />
+                                  </div>
+                                  <div className="block text-center relative">
+                                    <Camera />
+                                  </div>
+                                  <div className="block text-center relative">
+                                    <Gif />
+                                  </div>
+                                  <div className="block text-center relative">
+                                    <Video />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="items-start flex justify-between mt-4">
+                            <div className="flex items-center text-black text-sm gap-[6px] overflow-hidden"/>
+                            <div className="flex max-w-[740px]">
+                              <div className="flex gap-3 justify-end w-full">
+                                <button
+                                  onClick={() => setShowCommentInput(false)}
+                                    className="border-none text-[rgb(23,13,242)] cursor-pointer font-questrial text-sm overflow-hidden px-4 py-[6px]"
+                                >
+                                  Cancel
+                                </button>
+                                <button></button>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {/* SHOW COMMENT BUTTON BELOW WILL SHOW WHEN IT IS FALSE */}
+                      {showCommentInput === false && (
+                        <button
+                          data-hook="comment-box-placeholder"
+                          className="flex cursor-pointer p-4 w-full h-[56px]"
+                          onClick={() => setShowCommentInput(true)}
+                        >
+                          <div className="overflow-hidden w-full">
+                            <div className="text-black font-questrial text-base text-ellipsis whitespace-nowrap">
+                              <span className=""> Write a comment... </span>
+                            </div>
+                          </div>
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
