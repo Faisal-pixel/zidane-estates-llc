@@ -28,17 +28,17 @@ const LCards = ({
 
       <div className="flex flex-col px-6 pt-7 pb-6">
         <div className="flex mr-11 pb-3">
-          <span className="">techvanb</span>
+          <span className="text-xs">techvanb</span>
         </div>
 
         <div className="hover:text-blue-600 hover:cursor-pointer line-clamp-4 mb-3">
-          <p className=" text-xl mb-2">{cardTopic}</p>
+          <p className=" text-[22px] mb-2">{cardTopic}</p>
           <div className="text-base">
             <span>{cardDescription}</span>
           </div>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between border-t border-t-black pt-3 ">
           <div className="flex">
             <Eye className="mr-[0.5rem] w-5 h-5" />
             <span className="text-sm self-center">{numberOfViews}</span>
