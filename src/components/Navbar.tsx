@@ -56,7 +56,7 @@ const Navbar = () => {
                 <Search className="w-4 h-4 self-center" />
 
                 <input
-                  className="py-2 outline-none"
+                  className="py-2 outline-none text-black placeholder:black"
                   type="search"
                   placeholder="Search..."
                 />
