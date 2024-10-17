@@ -1,6 +1,6 @@
 import SignUpButton from "@/components/SignUpButton";
 import WrapperContainer from "@/components/WrapperContainer";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import NewsImg from "../../images/key.jpg";
@@ -56,7 +56,9 @@ const blogContent: Blog[] = [
 async function Page() {
   const getBlogs = async () => {
     const blogsCollection = collection(db, BLOGS_COLLECTION_NAME);
-    const querySnapshot = await getDocs(blogsCollection);
+    const blogsQuery = query(blogsCollection, orderBy("timestamp", "desc"));
+
+    const querySnapshot = await getDocs(blogsQuery);
     const blogData: Blog[] = [];
 
     querySnapshot.forEach((doc) => {
@@ -67,7 +69,7 @@ async function Page() {
   };
   const items = await getBlogs();
 
-  const blogs = items && items.length > 0 ? items : blogContent;
+  const blogs = items && items?.length > 0 ? items : blogContent;
 
   return (
     <>
@@ -90,13 +92,13 @@ async function Page() {
 
           <div className="mt-8 flex flex-col gap-7">
             {blogs.map((content) => (
-              <BlogCardContainer key={content.id} blog={content}>
+              <BlogCardContainer key={content?.id} blog={content}>
                 <div className="w-full md:w-[48%] h-1/2 md:h-full  ">
                   <Image
-                    src={content.image}
+                    src={content?.image}
                     alt="image"
-                    height={100}
-                    width={100}
+                    height={400}
+                    width={400}
                     className="w-full h-full object-cover max-h-[340px]"
                   />
                 </div>
@@ -122,37 +124,37 @@ async function Page() {
                         </p>
                         <span className="flex items-center gap-2 text-xs font-medium">
                           <p>
-                            {formatBlogDate(content.timestamp).formattedDate}
+                            {formatBlogDate(content?.timestamp).formattedDate}
                           </p>
                           <p>.</p>
                           <p>
-                            {formatBlogDate(content.timestamp).timeAgoString}
+                            {formatBlogDate(content?.timestamp).timeAgoString}
                           </p>
                         </span>
                       </div>
                     </div>
 
                     <h1 className="text-[22px] md:text-[28px] leading-9 text-[#343434] font-light mb-3 font-syne group-hover:text-primary transition-all duration-150 ease-in-out ">
-                      {content.title}
+                      {content?.title}
                     </h1>
 
                     <h5 className="text-[#343434] text-base w-[90%] transition-all duration-150 ease-in-out cursor-pointer group-hover:text-primary">
-                      {content.introductory.length > 150
-                        ? `${content.introductory.substring(0, 150)}...`
-                        : content.introductory}
+                      {content?.introductory?.length > 150
+                        ? `${content?.introductory.substring(0, 150)}...`
+                        : content?.introductory}
                     </h5>
                   </div>
 
                   <div className="flex items-center justify-between border-t border-t-gray-400 pt-5">
                     <div className="flex gap-3 text-xs">
-                      <p className="cursor-pointer">{content.views} views</p>
+                      <p className="cursor-pointer">{content?.views} views</p>
                       <p className="cursor-pointer">
-                        {content.comments.length ?? 0} comments
+                        {content?.comments?.length ?? 0} comments
                       </p>
                     </div>
                     <div className="flex items-center gap-5">
                       <div className="flex item-center justify-center gap-1 text-gray-600 cursor-pointer">
-                        <p className="text-sm text-white"> {content.likes} </p>
+                        <p className="text-sm text-white"> {content?.likes} </p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

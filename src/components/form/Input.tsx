@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className=" text-white border transition-all duration-150 ease-in-out border-gray-500 py-3 px-4 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-transparent"
+        className=" text-[#343434] border transition-all duration-150 ease-in-out border-gray-500 py-3 px-4 focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-transparent"
         {...others}
       />
     </div>

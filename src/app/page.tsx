@@ -1,9 +1,27 @@
-"use client";
 import Hero from "@/components/Hero";
 import LatestNewsAndInsight from "@/components/LatestNewsAndInsight";
 import ScheduleAConsolation from "@/components/ScheduleAConsolation";
+import { BLOGS_COLLECTION_NAME, db } from "@/lib/firebase";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { Blog } from "./blog/types";
 
-export default function Home() {
+export default async function Home() {
+  const getBlogs = async () => {
+    const blogsCollection = collection(db, BLOGS_COLLECTION_NAME);
+    const blogsQuery = query(blogsCollection, orderBy("timestamp", "desc"));
+
+    const querySnapshot = await getDocs(blogsQuery);
+    const blogData: Blog[] = [];
+
+    querySnapshot.forEach((doc) => {
+      blogData.push({ ...doc.data(), id: doc.id } as Blog);
+    });
+
+    return blogData;
+  };
+
+  const items = await getBlogs();
+
   return (
     <>
       <head>
@@ -12,7 +30,7 @@ export default function Home() {
 
       <div className=" my-16">
         <Hero />
-        <LatestNewsAndInsight />
+        <LatestNewsAndInsight blogs={items} />
         <ScheduleAConsolation />
         {/* <FeaturedListings /> */}
       </div>

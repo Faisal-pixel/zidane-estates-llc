@@ -25,6 +25,6 @@ const db = getFirestore(app)
 const storage = getStorage(app)
 const auth = getAuth()
 
-const BLOGS_COLLECTION_NAME = 'blogs'
+const BLOGS_COLLECTION_NAME = 'zidane-blogs'
 
 export { app, auth, BLOGS_COLLECTION_NAME, db, storage }
