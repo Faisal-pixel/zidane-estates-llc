@@ -3,22 +3,7 @@ import { motion } from "framer-motion";
 import WrapperContainer from "./WrapperContainer";
 export default function Footer() {
   return (
-    <motion.footer
-      initial={{
-        opacity: 0,
-      }}
-      whileInView={{
-        opacity: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 2,
-        ease: "easeOut",
-      }}
-      className="bg-white py-16 md:py-32 "
-    >
+    <motion.footer className="bg-white py-16 md:py-32 ">
       <WrapperContainer className="flex flex-col  md:flex-row justify-between md:items-start md:pr-32">
         {/* Left Section */}
         <div>
@@ -54,7 +39,6 @@ export default function Footer() {
           </div>
         </div>
       </WrapperContainer>
-      {/* <div className="container mx-auto flex flex-col  md:flex-row justify-between md:items-start"></div> */}
     </motion.footer>
   );
 }

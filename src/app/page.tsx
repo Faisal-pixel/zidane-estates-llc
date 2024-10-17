@@ -4,6 +4,7 @@ import ScheduleAConsolation from "@/components/ScheduleAConsolation";
 import { BLOGS_COLLECTION_NAME, db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { Blog } from "./blog/types";
+import FeaturedListings from "@/components/FeaturedListings";
 
 export default async function Home() {
   const getBlogs = async () => {
@@ -32,7 +33,7 @@ export default async function Home() {
         <Hero />
         <LatestNewsAndInsight blogs={items} />
         <ScheduleAConsolation />
-        {/* <FeaturedListings /> */}
+        <FeaturedListings />
       </div>
     </>
   );

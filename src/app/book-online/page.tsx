@@ -1,42 +1,56 @@
 "use client";
+import Modal from "@/components/Modal";
+import CustomPaymentForm from "@/components/Payment";
 import WrapperContainer from "@/components/WrapperContainer";
 import BuyerConsultation from "@/images/buyerConsultation.jpg";
 import NewConstruction from "@/images/newConstructionConsult.jpg";
 import PropertyConsultation from "@/images/propertyConsultation.jpg";
 import RentalPropety from "@/images/rentalPropertyTour.jpg";
 import Image from "next/image";
+import { useState } from "react";
+import InViewWrapper from "../utils/InViewWrapper";
 
 export default function BookOnline() {
-  const services = [
+   const services = [
     {
       id: 1,
       title: "Buyer Consultation",
       time: "1 hr",
-      price: "$50",
+      price: 50,
       image: BuyerConsultation,
     },
     {
       id: 2,
       title: "Rental Property Tour",
       time: "1 hr 30 min",
-      price: "$50",
+      price: 50,
       image: RentalPropety,
     },
     {
       id: 3,
       title: "New Construction Consult",
       time: "2 hr",
-      price: "$100",
+      price: 100,
       image: NewConstruction,
     },
     {
       id: 4,
       title: "Property Consultation",
       time: "1 hr",
-      price: "$75",
+      price: 75,
       image: PropertyConsultation,
     },
   ];
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [priceToPay, setPriceToPay] = useState<number>(0);
+
+  const closeModal = () => setIsOpen(false);
+
+  const setBooking = (price: number) => {
+    setPriceToPay(price);
+    setIsOpen(true);
+  };
 
   return (
     <>
@@ -71,11 +85,14 @@ export default function BookOnline() {
                   <div className="border-b-[0.8px] border-[rgb(0,0,0,0.2)] my-6" />
                   <p className="text-gray-600 font-bold">{service.time}</p>
                   <p className="text-gray-600 font-bold mb-4">
-                    {service.price}
+                    ${service.price}
                   </p>
                 </div>
 
-                <button className="bg-[rgb(23,13,242)] mt-5 mx-8 text-white py-2 px-4 hover:bg-blue-700 transition duration-300 w-fit">
+                <button
+                  onClick={() => setBooking(service.price)}
+                  className="bg-[rgb(23,13,242)] mt-5 mx-8 text-white py-2 px-4 hover:bg-blue-700 transition duration-300 w-fit"
+                >
                   Book Now
                 </button>
               </div>
@@ -83,6 +100,24 @@ export default function BookOnline() {
           </div>
         </div>
       </WrapperContainer>
+
+      <Modal title="Consultation Booking" isOpen={isOpen} onClose={closeModal}>
+        <CustomPaymentForm amount={priceToPay} closeModal={closeModal} />
+
+        <InViewWrapper
+          className="border-animate border-top py-5 mt-10"
+          style={{ "--border-color": "#5e5e5e" }}
+        >
+          <div className=" flex justify-end">
+            <button
+              onClick={closeModal}
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors mr-2"
+            >
+              Cancel
+            </button>
+          </div>
+        </InViewWrapper>
+      </Modal>
     </>
   );
 }

@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <WrapperContainer>
       <div className="lg:ml-3 flex flex-col gap-3 mb-4 font-syne ">
-        <h1 className="text-[38px] leading-[50px] md:leading-normal md:text-[64px]">
+        <h1 className="text-[38px] leading-[50px] md:leading-none md:text-[64px]">
           REAL ESTATE MANAGER
         </h1>
 
