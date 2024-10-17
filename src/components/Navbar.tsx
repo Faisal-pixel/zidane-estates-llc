@@ -46,9 +46,9 @@ const Navbar = () => {
                       passHref
                       className={`font-questrial cursor-pointer text-base font-light ${
                         pathname === item.href
-                          ? "text-[#170DF2]"
+                          ? "text-primary"
                           : "text-[#343434]"
-                      } hover:text-[#170DF2]`}
+                      } hover:text-primary`}
                     >
                       {item.label}
                     </Link>

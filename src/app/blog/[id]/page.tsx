@@ -94,9 +94,10 @@ export default async function BlogPage({ params }: { params: { id: string } }) {
 
               <Image
                 src={blog.image}
-                width={100}
-                height={100}
+                width={600}
+                height={600}
                 alt="news"
+                priority
                 className="h-[300px] md:h-[500px] w-full object-cover my-5"
               />
 
