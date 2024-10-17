@@ -10,12 +10,13 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        syne: ["Syne", "sans-serif"], // Add Syne to the font family
-        questrial: ["Questrial", "sans-serif"], // Add Questrial to the font family
+        syne: ["Syne", "sans-serif"],
+        questrial: ["Questrial", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        primary: "#170DF2",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -24,10 +25,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
+
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",

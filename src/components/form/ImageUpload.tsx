@@ -10,7 +10,7 @@ type ImageUploadProps = {
 const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, label, value, onHandleDelete, ...others }) => {
     return (
         <div className="relative">
-            <span className="text-lg font-semibold text-gray-200">{label}</span>
+            <span className="text-lg font-semibold text-[#343434]">{label}</span>
 
             <label className="w-full h-[200px] mb-4 mt-2 flex flex-col items-center border border-gray-500 justify-center cursor-pointer focus:outline-none focus:ring-[1px] focus:ring-primary focus:border-transparent">
                 <div className="w-full h-full flex flex-col items-center justify-center gap-2">

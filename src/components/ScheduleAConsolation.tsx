@@ -1,64 +1,56 @@
-'use client'
-import React from 'react';
-import DifferentTypes from './schedule_consulation/differentTypes';
-import { motion } from 'framer-motion';
-
-type Props = {
-    headingTextStyle?: string;
-    initial?: {
-        opacity: number;
-    };
-    whileInView?: {
-        opacity: number;
-    };
-    transition?: {
-        duration: number;
-    };
-}
+"use client";
+import { fadeInAnimation } from "@/app/animation";
+import { motion } from "framer-motion";
+import DifferentTypes from "./schedule_consulation/differentTypes";
+import WrapperContainer from "./WrapperContainer";
 
 const differentTypes = [
-    {
-        type: 'Buyer Consulation',
-        to: '',
-        price: '$50'
-    },
-    {
-        type: 'Rental Property Tour',
-        to: '',
-        price: '$50'
-    },
-    {
-        type: 'New Construction Consult',
-        to: '',
-        price: '$100'
-    },
-    {
-        type: 'Property Consultation',
-        to: '',
-        price: '$70'
-    },
-]
+  {
+    type: "Buyer Consulation",
+    to: "",
+    price: "$50",
+  },
+  {
+    type: "Rental Property Tour",
+    to: "",
+    price: "$50",
+  },
+  {
+    type: "New Construction Consult",
+    to: "",
+    price: "$100",
+  },
+  {
+    type: "Property Consultation",
+    to: "",
+    price: "$70",
+  },
+];
 
-const ScheduleAConsolation = ({headingTextStyle, ...props}: Props) => {
+const ScheduleAConsolation = () => {
+  const { inView, initial, transition } = fadeInAnimation;
+
   return (
-    <section className="max-w-[90%] mx-auto md:max-w-full">
-        <motion.div
-        {...props}
+    <motion.section
+      id="latest-news-and-insight"
+      initial={initial}
+      whileInView={inView}
+      transition={transition}
+      className="md:my-24"
+    >
+      <WrapperContainer>
+        <h2 className="text-[32px] leading-9 md:leading-normal md:text-[64px]  my-7 md:my-10 font-syne">
+          SCHEDULE A CONSULATION
+        </h2>
 
-        className={headingTextStyle}>
-            <h2>SCHEDULE A CONSULATION</h2>
-        </motion.div>
-
-        <div className=' md:p-5'>
-            {
-                differentTypes.map((type, index) => (
-                    <DifferentTypes key={index} {...type} />
-
-                ))
-            }
+        <div>
+          {differentTypes.map((type, index) => (
+            <DifferentTypes key={index} {...type} />
+          ))}
         </div>
-    </section>
-  )
-}
+      </WrapperContainer>
+    </motion.section>
+  );
+};
 
-export default ScheduleAConsolation
+export default ScheduleAConsolation;

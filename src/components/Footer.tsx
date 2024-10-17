@@ -19,7 +19,7 @@ export default function Footer() {
       }}
       className="bg-white py-16 md:py-32 "
     >
-      <WrapperContainer className="flex flex-col  md:flex-row justify-between md:items-start md:mr-32">
+      <WrapperContainer className="flex flex-col  md:flex-row justify-between md:items-start md:pr-32">
         {/* Left Section */}
         <div>
           <h2 className="text-3xl font-light mb-10 md:mb-4 font-syne">
@@ -43,12 +43,12 @@ export default function Footer() {
           </p>
 
           {/* Form */}
-          <div className="flex flex-col md:flex-row md:items-center gap-4">
+          <div className="flex flex-col md:flex-row md:items-end gap-2">
             <input
               type="email"
-              className="border-b-2 border-blue-600 focus:outline-none w-full md:w-64 mr-4"
+              className="border-b-2 border-blue-600 focus:outline-none w-full md:w-64"
             />
-            <button className="bg-[rgb(23,13,242)] text-lg md:text-base w-full md:w-[8.65rem] py-4 text-[rgb(175,172,251)] px-4 md:py-2  hover:text-[rgb(23,13,242)] hover:bg-[rgb(255,235,255)] transition-all duration-700">
+            <button className="bg-[rgb(23,13,242)] text-lg md:text-base w-full md:w-[8.65rem] py-4 text-[rgb(175,172,251)] px-4 md:py-2  hover:text-[rgb(23,13,242)] hover:bg-[rgb(255,235,255)] transition-all duration-700 lg:mb-[2px]">
               Subscribe
             </button>
           </div>
