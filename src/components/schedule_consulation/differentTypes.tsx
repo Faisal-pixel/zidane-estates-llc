@@ -1,7 +1,4 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import CustomBlueButton from "../ui/CustomBlueButton";
 import {
   Card,
   CardDescription,
@@ -9,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useResponsive } from "@/hooks/useResponsive";
 
 type Props = {
@@ -18,34 +14,28 @@ type Props = {
   price: string;
 };
 
-const DifferentTypesSmall = ({ type, to, price }: Props) => {
+const DifferentTypesSmall = ({ type, price }: Props) => {
   return (
     <>
-      <Card className="sm:hidden mb-4 rounded-none border-2 border-[#170DF2]">
+      <Card className="sm:hidden mb-4 rounded-none border border-[#170DF2]">
         <CardHeader>
           <CardTitle>
-            <Link
-              href={to}
-              className="hover:text-gray-500 transition-colors duration-500 text-xl font-normal"
-            >
-              <p className="text-inherit basis-[70%]">{type}</p>
-            </Link>
+            <h1 className="font-light text-2xl tracking-wide hover:text-gray-500 text-[#414141] transition-all duration-300 ease-in-out">
+              {type}
+            </h1>
+
             <div className="mt-5 border-t border-gray-400" />
           </CardTitle>
           <CardDescription>
+            <p className="font-normal text-lg mt-4 mb-2">1hr 30mins</p>
             <p className="font-normal text-lg">{price}</p>
           </CardDescription>
         </CardHeader>
-        {/* <CardContent>
-          <p>Card Content</p>
-        </CardContent> */}
+
         <CardFooter className="flex items-center justify-center">
-          <Button
-            className="w-full font-questrial text-base bg-[rgb(23,13,242)] duration-500 hover:bg-[rgb(255,235,255)] hover:text-[rgb(23,13,242)] rounded-none"
-            asChild
-          >
-            <Link href="/login">Book Now</Link>
-          </Button>
+          <button className="w-full font-questrial inline-block bg-[#170DF2] hover:text-[#170DF2] hover:bg-pink-200 cursor-pointer transition-all duration-300 ease-in-out text-white py-3 text-lg px-7">
+            Book Now
+          </button>
         </CardFooter>
       </Card>
     </>
@@ -54,23 +44,23 @@ const DifferentTypesSmall = ({ type, to, price }: Props) => {
 
 const DifferentTypes = ({ type, to, price }: Props) => {
   const { isXs } = useResponsive();
+
   return (
     <>
-      <div className="hidden py-8 justify-between border-t last-of-type:border-b border-[#170DF2] sm:flex">
+      <div className="hidden font-wix-display py-8 justify-between border-t last-of-type:border-b border-[#170DF2] sm:flex">
         <div className="flex justify-between basis-[calc(60%-16px)] flex-1 text-2xl">
-          <Link
-            href={to}
-            className="hover:text-gray-500 transition-colors duration-500"
-          >
-            <p className="text-inherit basis-[70%]">{type}</p>
-          </Link>
+          <h1 className="font-light text-2xl tracking-wide hover:text-gray-500 text-[#414141] transition-all duration-300 ease-in-out">
+            {type}
+          </h1>
+
           <p className="font-normal text-[16px] leading-[32px] basis-[27%]">
             {price}
           </p>
         </div>
-        <div className="">
-          <CustomBlueButton to={to}>Book Now</CustomBlueButton>
-        </div>
+
+        <button className="inline-block bg-[#170DF2] hover:text-[#170DF2] hover:bg-pink-200 cursor-pointer transition-all duration-300 ease-in-out text-white py-2 w-auto px-7">
+          Book Now
+        </button>
       </div>
 
       {isXs && <DifferentTypesSmall type={type} to={to} price={price} />}

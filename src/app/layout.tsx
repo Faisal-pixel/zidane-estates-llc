@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`md:max-w-[90%] mx-auto pt-4`}
+        // className={`md:max-w-[90%] mx-auto pt-4`}
       >
         <Navbar />
         {children}

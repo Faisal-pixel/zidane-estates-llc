@@ -1,416 +1,182 @@
-"use client";
-import {
-  getAllBlogDocuments,
-  getBlogFromFirestore,
-  getUserFromFirestore,
-} from "@/lib/firebase";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { Blog } from "../types";
-import { TUser } from "@/types";
-import {
-  Camera,
-  EllipsisVertical,
-  Eye,
-  Facebook,
-  Heart,
-  Linkedin,
-  LinkIcon,
-  MessageSquare,
-  Smile,
-  Video,
-} from "lucide-react";
-import { AvatarIcon } from "@radix-ui/react-icons";
+import { formatBlogDate } from "@/app/utils/formatDate";
+import InViewWrapper from "@/app/utils/InViewWrapper";
+import SignUpButton from "@/components/SignUpButton";
+import WrapperContainer from "@/components/WrapperContainer";
+import { db } from "@/lib/firebase";
+import { blogService } from "@/lib/firebase/blogService";
+import { doc, getDoc } from "firebase/firestore";
+import { NotFoundBoundary } from "next/dist/client/components/not-found-boundary";
+import { headers } from "next/headers";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
-import BlogHeaderInfo from "@/components/blog_page/BlogHeaderInfo";
-import { Gif } from "react-flaticons";
+import Link from "next/link";
+import CopyBlogButton from "../CopyBlogButton";
+import { Blog } from "../types";
+import Comment from "./comments";
+import LikeButton from "./likes";
 
-const paddingSet60px = "sm:px-[60px]";
-
-const BlogPage = ({ params }: { params: { id: string } }) => {
+export default async function BlogPage({ params }: { params: { id: string } }) {
   const id = params.id;
+  if (!id) {
+    return <div>Blog ID not found</div>;
+  }
 
-  const [blogDetails, setBlogDetails] = useState<Blog | null>(null);
-  const [userDetails, setUserDetails] = useState<TUser | null>(null);
-  const [heart, setHeart] = useState(false);
-  const [blogs, setBlogs] = useState<Blog[] | []>([]);
-  const [showCommentInput, setShowCommentInput] = useState(false);
-  const [commentText, setCommentText] = useState("");
+  const blogRef = doc(db, "blogs", id);
+  const blogDoc = await getDoc(blogRef);
 
-  useEffect(() => {
-    if (!id) return;
-    const getBlog = async () => {
-      const blog = await getBlogFromFirestore(id);
-      console.log(blog);
-      const user = await getUserFromFirestore(blog?.authorId as string);
-      setBlogDetails(blog as Blog);
-      setUserDetails(user ?? null);
-    };
-    getBlog();
-  }, [id]);
+  if (!blogDoc.exists())
+    return <NotFoundBoundary>Invalid Blog</NotFoundBoundary>;
 
-  useEffect(() => {
-    const getBlogs = async () => {
-      // fetch blogs
-      const response = await getAllBlogDocuments();
-      setBlogs(response);
-    };
+  const { handleIncreaseView } = blogService();
 
-    getBlogs();
-  }, []);
+  await handleIncreaseView(blogDoc.id);
 
-  //   if (!id || !blogDetails) return <div>We could not find the this page</div>;
+  const blog = {
+    ...blogDoc.data(),
+    id: blogDoc.id,
+  } as Blog;
+
+  const headersList = headers();
+
+  const header_url = headersList.get("x-url") || "";
 
   return (
     <>
-      <motion.section
-        initial={{
-          opacity: 0,
-        }}
-        whileInView={{
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 2,
-          ease: "easeOut",
-        }}
-        id="all-posts"
-        className="md:mx-[8rem] xl:mx-[10rem]"
-      >
-        <div className="flex justify-between px-5 md:px-0 py-2 bg-[rgb(23,13,242)] md:bg-white">
-          <div className="w-auto">
-            <div className="h-full flex items-center">
-              <span className="text-white md:hidden">Post</span>
-              <span className="hidden md:inline-block">All Posts</span>
-            </div>
-          </div>
+      <head>
+        <title>{blog.title}</title>
+      </head>
 
-          <div className="self-center">
+      <WrapperContainer>
+        <div className="mt-5 md:mt-9 md:w-[85%] lg:w-[62%] mx-auto md:pb-20 pb-10 animate-fadeIn">
+          <div className="flex items-center justify-between">
             <Link
-              href=""
-              className="inline-block px-8 py-2 border border-[rgb(23,13,242)]"
+              href={"/blog"}
+              className="hover:text-primary transition-all duration-200 ease-in-out text-sm"
             >
-              <span className="text-white font-semibold font-questrial md:text-[rgb(23,13,242)]">
-                Sign Up
-              </span>
+              All Posts
             </Link>
+
+            <SignUpButton />
           </div>
-        </div>
 
-        {!id || !blogDetails ? (
-          <div>We could not find the this page</div>
-        ) : (
-          <>
-            <div className="border py-[60px] border-[rgb(255,235,255)]">
-              {/* USER INFORMATION AND BLOG TOPIC */}
-              <div className={paddingSet60px}>
-                <div className="w-[90%] mx-auto">
-                  <div className="block md:hidden">
-                    <BlogHeaderInfo />
-                  </div>
-
-                  {/* BLOG HEADER INFO ON LARGE SCREEN BELOW */}
-                  <div className="hidden md:flex">
-                    <div className="flex">
-                      {/* AVATAR ICON and USERNAME */}
-                      <span className="flex self-center">
-                        <span>
-                          <AvatarIcon className="h-8 w-8" />
-                        </span>
-                        <span className="self-center pl-[12px] text-sm font-syne">
-                          {userDetails?.name}
-                        </span>
-                      </span>
-
-                      <span className="self-center mx-2 h-[3px] w-[3px] bg-black rounded-full"></span>
-
-                      <span className="self-center text-sm font-questrial">
-                        May 25
-                      </span>
-
-                      <span className="self-center mx-2 h-[3px] w-[3px] bg-black rounded-full"></span>
-
-                      <span className="self-center text-sm font-questrial">
-                        {blogDetails.readingTime} min read
-                      </span>
-                    </div>
-                    {/* VERTICAL ELIPSES */}
-                    <div className="ml-auto self-center cursor-pointer">
-                      <EllipsisVertical />
-                    </div>
-                  </div>
-                  <div className="mt-[27px]">
-                    <h1 className="text-[28px] font-syne">
-                      {blogDetails.blogTopic}
-                    </h1>
-                  </div>
+          <div className="border border-[#FFEBFFBF] mt-10 mb-4 py-12 ">
+            <div className="w-[80%] mx-auto">
+              <div className="flex gap-2 items-center p-2 mb-7">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="size-7 p-1 bg-[#a0a09f] text-[#cccccc] rounded-full"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <div className="flex items-center p-0 gap-2 m-0">
+                  <p className="self-start text-base font-medium cursor-pointer">
+                    techvanb
+                  </p>
+                  <span className="flex items-center gap-2 text-sm font-light text-[#343434] ">
+                    <p>{formatBlogDate(blog.timestamp).formattedDate}</p>
+                    <p>.</p>
+                    <p>{formatBlogDate(blog.timestamp).timeAgoString}</p>
+                  </span>
                 </div>
               </div>
 
-              {/* BLOG CONTENT */}
-              <div className={paddingSet60px}>
-                <div className="w-[90%] mx-auto">
-                  <div className="mt-[27px]">
-                    <p className="text-[18px] font-syne">
-                      {blogDetails.blogContents1}
+              <h1 className="text-[22px] md:text-[28px] leading-9 text-[#343434] font-light mb-5 font-syne group-hover:text-primary transition-all duration-150 ease-in-out ">
+                {blog.title}
+              </h1>
+              <p className="mt-5 text-[#343434] font-light leading-7 text-lg">
+                {blog.introductory}
+              </p>
+
+              <Image
+                src={blog.image}
+                width={100}
+                height={100}
+                alt="news"
+                className="h-[300px] md:h-[500px] w-full object-cover my-5"
+              />
+
+              <p className="mt-5 md:mt-10 text-[#343434] font-light leading-7 text-lg">
+                {blog.content}
+              </p>
+
+              <div className="flex items-center gap-8 mt-4 border-y border-y-gray-400 py-5">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="19"
+                  viewBox="0 0 19 19"
+                  role="img"
+                  fill="#343434"
+                  className="cursor-pointer hover:fill-primary transition-all duration-300 ease-in-out"
+                >
+                  <path d="M8.08865986,17 L8.08865986,10.2073504 L5.7890625,10.2073504 L5.7890625,7.42194226 L8.08865986,7.42194226 L8.08865986,5.08269399 C8.08865986,3.38142605 9.46779813,2.00228778 11.1690661,2.00228778 L13.5731201,2.00228778 L13.5731201,4.50700008 L11.8528988,4.50700008 C11.3123209,4.50700008 10.874068,4.94525303 10.874068,5.48583089 L10.874068,7.42198102 L13.5299033,7.42198102 L13.1628515,10.2073892 L10.874068,10.2073892 L10.874068,17 L8.08865986,17 Z"></path>
+                </svg>
+                <svg
+                  width="19"
+                  height="19"
+                  viewBox="0 0 19 19"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#343434"
+                  className="cursor-pointer hover:fill-primary transition-all duration-300 ease-in-out"
+                >
+                  <path d="M13.303 10.7714L19.1223 4H17.7433L12.6904 9.87954L8.65471 4H4L10.1028 12.8909L4 19.9918H5.37906L10.715 13.7828L14.977 19.9918H19.6317L13.3027 10.7714H13.303ZM11.4142 12.9692L10.7958 12.0839L5.87595 5.03921H7.9941L11.9645 10.7245L12.5829 11.6098L17.7439 18.9998H15.6258L11.4142 12.9696V12.9692Z"></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="19"
+                  viewBox="0 0 19 19"
+                  role="img"
+                  fill="#343434"
+                  className="cursor-pointer hover:fill-primary transition-all duration-300 ease-in-out"
+                >
+                  <path d="M17,17 L13.89343,17 L13.89343,12.1275733 C13.89343,10.9651251 13.87218,9.47069458 12.2781416,9.47069458 C10.660379,9.47069458 10.4126568,10.7365137 10.4126568,12.0434478 L10.4126568,17 L7.30623235,17 L7.30623235,6.98060885 L10.2883591,6.98060885 L10.2883591,8.3495072 L10.3296946,8.3495072 C10.7445056,7.56190587 11.7585364,6.7312941 13.2709225,6.7312941 C16.418828,6.7312941 17,8.80643844 17,11.5041407 L17,17 Z M3.80289931,5.61098151 C2.80647978,5.61098151 2,4.80165627 2,3.80498046 C2,2.80903365 2.80647978,2 3.80289931,2 C4.79669898,2 5.60434314,2.80903365 5.60434314,3.80498046 C5.60434314,4.80165627 4.79669898,5.61098151 3.80289931,5.61098151 Z M2.24786773,17 L2.24786773,6.98060885 L5.35662096,6.98060885 L5.35662096,17 L2.24786773,17 Z"></path>
+                </svg>
+
+                <CopyBlogButton url={header_url} />
+              </div>
+
+              {/* <InViewWrapper
+                className={`border-animate border-top  mt-7`}
+                style={{ "--border-color": "#6B7280" }}
+              ></InViewWrapper> */}
+
+              <InViewWrapper
+                className={`border-animate border-top py-5`}
+                style={{ "--border-color": "#6B7280" }}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-3 text-xs">
+                    <p className="cursor-pointer">{blog.views} views</p>
+                    <p className="cursor-pointer">
+                      {blog.comments.length} comments
                     </p>
                   </div>
-                </div>
-              </div>
-              {/* BLOG IMAGE */}
-              {/* Later on we can check if there is an image, if there is reder the below, if not dont render */}
-              <div className={`${paddingSet60px} my-3`}>
-                <div className="w-[90%] mx-auto">
-                  <figure>
-                    <Image
-                      src={blogDetails.blogImage as string}
-                      alt="form-listings-to-key-img"
-                      width={443}
-                      height={443}
-                      className="w-full"
-                    />
-                  </figure>
-                </div>
-              </div>
-
-              <div className={paddingSet60px}>
-                <div className="w-[90%] mx-auto">
-                  <p className="text-[18px] font-syne">
-                    {blogDetails.blogContents2}
-                  </p>
-                </div>
-              </div>
-              {/* FOOTER */}
-              <div className={paddingSet60px}>
-                <div className="w-[90%] mx-auto">
-                  <div className="mt-[50px]">
-                    <span className="h-[1px] bg-[rgb(255,235,255)] block"></span>
-                    <div className="h-[60px] flex flex-col justify-center">
-                      <div className="flex gap-x-[30px]">
-                        <Link
-                          href={
-                            (blogDetails.blogUrls?.facebook as string) || ""
-                          }
-                        >
-                          <Facebook
-                            strokeWidth="0.5px"
-                            className="h-[19px] w-[19px] text-sm font-light fill-black"
-                          />
-                        </Link>
-                        <Link
-                          href={
-                            (blogDetails.blogUrls?.facebook as string) || ""
-                          }
-                        >
-                          <FontAwesomeIcon
-                            size="xs"
-                            icon={faXTwitter}
-                            className="h-[19px] w-[19px]"
-                          />
-                        </Link>
-                        <Link
-                          href={
-                            (blogDetails.blogUrls?.facebook as string) || ""
-                          }
-                        >
-                          <Linkedin
-                            strokeWidth="0.5px"
-                            className="h-[19px] w-[19px] text-sm font-light fill-black"
-                          />
-                        </Link>
-                        <Link
-                          href={
-                            (blogDetails.blogUrls?.facebook as string) || ""
-                          }
-                        >
-                          <LinkIcon
-                            strokeWidth="2px"
-                            className="h-[19px] w-[19px] "
-                          />
-                        </Link>
-                      </div>
-                    </div>
-                    <span className="h-[1px] bg-[rgb(255,235,255)] block"></span>
-                    <div className="flex pt-[18px] text-sm">
-                      <div className="flex">
-                        <span>{blogDetails.views} views</span>
-                        <span className="ml-[22px]">
-                          {blogDetails.comments?.length} comments
-                        </span>
-                      </div>
-                      <div className="ml-auto flex items-center cursor-pointer">
-                        <span className="ml-2"></span>
-                        <Heart
-                          onClick={() => setHeart((prevVal) => !prevVal)}
-                          className={`w-4 h-4 ${
-                            heart && "text-red-600 fill-red-600"
-                          } transition-all`}
-                        />
-                      </div>
-                    </div>
+                  <div className="flex items-center gap-5">
+                    <LikeButton blog={blog} />
                   </div>
                 </div>
-              </div>
+              </InViewWrapper>
             </div>
-            <div className="w-[90%] mx-auto">
-              <div className="pt-[23px]">
-                <div className="flex justify-between text-lg font-syne">
-                  <h2>Recent Posts</h2>
-                  <Link href="/blog">
-                    <span className="cursor-pointer"> See All</span>
-                  </Link>
-                </div>
-              </div>
+          </div>
 
-              <div className="py-5">
-                <div className="flex space-x-[34px]">
-                  {blogs.map((_) => (
-                    <div
-                      key={_.id}
-                      className={`${_.id === blogDetails.id && "hidden"}`}
-                    >
-                      <div className="max-w-[290px] border border-[rgb(255,235,255)]">
-                        <div>
-                          <Image
-                            src={_.blogImage as string}
-                            alt="blog-image"
-                            width={443}
-                            height={443}
-                          />
-                        </div>
+          <Link
+            href={"/blog"}
+            className="hover:text-primary transition-all flex justify-end w-full duration-200 ease-in-out text-sm"
+          >
+            See all
+          </Link>
 
-                        <div className="p-[24px]">
-                          <div>
-                            <Link href={`${_.id}`}>
-                              <p className="text-[18px] hover:text-[rgb(23,13,242)] font-syne">
-                                {_.blogTopic}
-                              </p>
-                            </Link>
-                          </div>
-
-                          <div className="mt-3">
-                            <span className="block h-[1px] bg-[hsl(0,0,0)] opacity-20"></span>
-                            <div className="pt-[15px]">
-                              <div className="flex text-xs">
-                                <span className="flex">
-                                  <Eye className="w-4 h-4" />
-                                  <span className="ml-[6px]">{_.views}</span>
-                                </span>
-                                <span className="flex ml-[16px]">
-                                  <MessageSquare className="w-4 h-4" />
-                                  <span className="ml-[6px]">
-                                    {_.comments?.length}
-                                  </span>
-                                </span>
-
-                                <span className="ml-auto">
-                                  <Heart className={`w-4 h-4 transition-all`} />
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+          <div className="border border-[rgba(36,36,36)] mt-10 mb-4 pt-5 pb-10 ">
+            <div className="w-[80%] mx-auto">
+              <Comment blog={blog} />
             </div>
-
-            {/* COMMENT SECTION */}
-            <div className="w-[90%] mx-auto">
-              <div className="max-w-[740px] mx-auto mt-10 pt-5 pb-[50px] px-[30px]">
-                <div className=" mb-4">
-                  <h2 className="font-syne text-base">
-                    {blogDetails.comments?.length + " Comments"}
-                  </h2>
-                </div>
-
-                <div>
-                  <hr className="max-w-full border border-[rgba(0,0,0,0.2)] mb-[36px]" />
-                  <div className="pb-2 flex flex-col h-full w-full">
-                    <div className="bg-clip-content bg-transparent border relative w-full">
-                      {setShowCommentInput && (
-                        <>
-                          <div className="border border-black border-transparent bg-clip-content relative w-full focus:border-[rgba(0,0,0,0.3)]">
-                            <div className="px-4 pt-4">
-                              <div className="flex flex-col overflow-hidden">
-                                <div className="contain-inline-size flex flex-1 flex-col h-full relative">
-                                  <div className="flex flex-1 flex-col text-black text-base h-full w-full">
-                                    <p
-                                      className="text-black font font-questrial text-base"
-                                      data-placeholder="Write a comment..."
-                                    ></p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="py-3 px-4 justify-between w-full flex items-center">
-                              <div className="min-h-[25px] min-w-6 flex grow items-center">
-                                <div className="flex items-center gap-5">
-                                  <div className="block text-center relative">
-                                    <Smile />
-                                  </div>
-                                  <div className="block text-center relative">
-                                    <Camera />
-                                  </div>
-                                  <div className="block text-center relative">
-                                    <Gif />
-                                  </div>
-                                  <div className="block text-center relative">
-                                    <Video />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="items-start flex justify-between mt-4">
-                            <div className="flex items-center text-black text-sm gap-[6px] overflow-hidden"/>
-                            <div className="flex max-w-[740px]">
-                              <div className="flex gap-3 justify-end w-full">
-                                <button
-                                  onClick={() => setShowCommentInput(false)}
-                                    className="border-none text-[rgb(23,13,242)] cursor-pointer font-questrial text-sm overflow-hidden px-4 py-[6px]"
-                                >
-                                  Cancel
-                                </button>
-                                <button></button>
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                      {/* SHOW COMMENT BUTTON BELOW WILL SHOW WHEN IT IS FALSE */}
-                      {showCommentInput === false && (
-                        <button
-                          data-hook="comment-box-placeholder"
-                          className="flex cursor-pointer p-4 w-full h-[56px]"
-                          onClick={() => setShowCommentInput(true)}
-                        >
-                          <div className="overflow-hidden w-full">
-                            <div className="text-black font-questrial text-base text-ellipsis whitespace-nowrap">
-                              <span className=""> Write a comment... </span>
-                            </div>
-                          </div>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </motion.section>
+          </div>
+        </div>
+      </WrapperContainer>
     </>
   );
-};
-
-export default BlogPage;
+}

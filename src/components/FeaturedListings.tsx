@@ -1,12 +1,21 @@
-'use client'
-import React from "react";
+"use client";
 import { Card, CardContent } from "@/components/ui/card";
-import FirstCarouselImg from "@/images/one.jpg";
-import SecondCarouselImg from "@/images/two.jpg";
-import ThirdCarouselImg from "@/images/three.jpg";
-import FourthCarouselImg from "@/images/four.jpg";
 import FifthCarouselImg from "@/images/five.jpg";
-import { motion } from 'framer-motion';
+import FourthCarouselImg from "@/images/four.jpg";
+import FirstCarouselImg from "@/images/one.jpg";
+import ThirdCarouselImg from "@/images/three.jpg";
+import SecondCarouselImg from "@/images/two.jpg";
+import { motion } from "framer-motion";
+
+import { fadeInAnimation } from "@/app/animation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import WrapperContainer from "./WrapperContainer";
 
 const carouselImages = [
   {
@@ -30,27 +39,6 @@ const carouselImages = [
     alt: "carouselImage",
   },
 ];
-
-type Props = {
-  headingTextStyle?: string;
-  initial?: {
-    opacity: number;
-  };
-  whileInView?: {
-    opacity: number;
-  };
-  transition?: {
-    duration: number;
-  };
-};
-
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 export function CarouselSize() {
   return (
@@ -86,16 +74,24 @@ export function CarouselSize() {
   );
 }
 
-const FeaturedListings = ({ headingTextStyle, ...props }: Props) => {
+const FeaturedListings = () => {
+  const { inView, initial, transition } = fadeInAnimation;
+
   return (
-    <section id="featured-listings" className="mx-4 md:mx-0">
-      <motion.div {...props} className={headingTextStyle}>
-        <h2>FEATURED LISTINGS</h2>
-      </motion.div>
-      <div>
+    <motion.section
+      id="latest-news-and-insight"
+      initial={initial}
+      whileInView={inView}
+      transition={transition}
+    >
+      <WrapperContainer>
+        <h2 className="text-[27px] md:text-[64px]  my-5 md:my-10 font-syne">
+          FEATURED LISTINGS
+        </h2>
+
         <CarouselSize />
-      </div>
-    </section>
+      </WrapperContainer>
+    </motion.section>
   );
 };
 

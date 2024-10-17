@@ -1,151 +1,335 @@
-"use client";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+// "use client";
+// import Link from "next/link";
+// import React, { useEffect, useState } from "react";
+// import Image from "next/image";
+// import { Crown, Dot, EllipsisVertical, Heart } from "lucide-react";
+// import { AvatarIcon } from "@radix-ui/react-icons";
+// import { motion } from "framer-motion";
+// import { getAllBlogDocuments } from "@/lib/firebase";
+// import { Blog as BlogType } from "./types";
+
+// // type Props = {};
+
+// const Blog = () => {
+//   const [heart, setHeart] = useState(false);
+//   const [blogs, setBlogs] = useState<BlogType[] | []>([]);
+
+//   useEffect(() => {
+//     const getBlogs = async () => {
+//       // fetch blogs
+//       const response = await getAllBlogDocuments();
+//       setBlogs(response);
+//     }
+
+//     getBlogs();
+//   }, [])
+//   return (
+//     <motion.section
+//       initial={{
+//         opacity: 0,
+//       }}
+//       whileInView={{
+//         opacity: 1,
+//       }}
+//       viewport={{
+//         once: true,
+//       }}
+//       transition={{
+//         duration: 2,
+//         ease: "easeOut",
+//       }}
+//       id="all-posts"
+//       className="md:mx-[8rem] xl:mx-[14rem]"
+//     >
+//       <div className="flex justify-between px-5 py-2 bg-[rgb(23,13,242)] md:bg-white">
+//         <div className="w-auto">
+//           <div className="h-full flex items-center">
+//             <span className="text-white md:hidden">Blog</span>
+//             <span className="hidden md:inline-block">All Posts</span>
+//           </div>
+//         </div>
+
+//         <div className="self-center">
+//           <Link
+//             href=""
+//             className="inline-block px-8 py-2 border border-[rgb(23,13,242)]"
+//           >
+//             <span className="text-white md:text-[rgb(23,13,242)]">
+//               Log in/ Sign Up
+//             </span>
+//           </Link>
+//         </div>
+//       </div>
+
+//       <div className="">
+//         <div className="flex flex-col gap-y-7 md:mt-5 md:w-[95%] md:mx-auto">
+//           {blogs.length > 0 && blogs.map((_, index) => (
+//             <div
+//               key={index}
+//               className="flex flex-col lg:flex-row"
+//             >
+//               <div className="basis-1/2 ">
+//                 <Image
+//                   src={_.blogImage as string}
+//                   layout="responsive"
+//                   width={443}
+//                   height={443}
+//                   alt="form-listings-to-key-img"
+//                   className="h-full"
+//                 />
+//               </div>
+//               <div className="basis-1/2 px-9 py-6">
+//                 <div className="flex justify-between pb-3">
+//                   <div className="mr-[2.43rem] flex justify-between">
+//                     <div className="self-center">
+//                       <AvatarIcon className="h-8 w-8" />
+//                     </div>
+
+//                     <div className="flex flex-col ml-1">
+//                       <div className="flex text-xs">
+//                         <span>{_.author}</span>
+//                         <span className="self-center ml-1">
+//                           <Crown className="h-3 w-3" />
+//                         </span>
+//                       </div>
+//                       <div className="flex text-xs">
+//                         <span className="self-center">May 25</span>
+//                         <span className="self-center">
+//                           <Dot />
+//                         </span>
+//                         <span className="self-center">{_.readingTime} min</span>
+//                       </div>
+//                     </div>
+//                   </div>
+//                   <div className="ml-auto cursor-pointer">
+//                     <EllipsisVertical />
+//                   </div>
+//                 </div>
+//                 <div className="group">
+//                   <div className="group-hover:text-[rgb(23,13,242)] transition-all">
+//                     <Link href={`blog/${_.id}`}>
+//                       <p className="text-[1.8rem] font-normal font-syne">
+//                         {_.blogTopic}
+//                       </p>
+//                     </Link>
+//                   </div>
+//                   <div className="line-clamp-3 mt-4 cursor-pointer group-hover:text-[rgb(23,13,242)]">
+//                     <p className="font-questrial">
+//                       {_.blogContents1}
+//                     </p>
+//                   </div>
+//                 </div>
+//                 <div className="pt-3 mt-11 text-xs">
+//                   <div className="mb-4 border-t-[2px] border-[rgb(161,156,161)]" />
+//                   <div className="flex justify-between">
+//                     <div className="flex gap-x-4 text-xs">
+//                       <span>{_.views} views</span>
+//                       <span className="cursor-pointer hover:text-[rgb(23,13,242)] transition-all">
+//                         {_.comments?.length} comments
+//                       </span>
+//                     </div>
+//                     <div className="flex items-center cursor-pointer">
+//                       <span className="ml-2">{_.likes}</span>
+//                       <Heart
+//                         onClick={() => setHeart((prevVal) => !prevVal)}
+//                         className={`w-4 h-4 ml-1 ${
+//                           heart && "text-red-600 fill-red-600"
+//                         } transition-all`}
+//                       />
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </motion.section>
+//   );
+// };
+
+// export default Blog;
+
+import SignUpButton from "@/components/SignUpButton";
+import WrapperContainer from "@/components/WrapperContainer";
+import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
-import { Crown, Dot, EllipsisVertical, Heart } from "lucide-react";
-import { AvatarIcon } from "@radix-ui/react-icons";
-import { motion } from "framer-motion";
-import { getAllBlogDocuments } from "@/lib/firebase";
-import { Blog as BlogType } from "./types";
+import Link from "next/link";
+import NewsImg from "../../images/key.jpg";
+import NewsImg2 from "../../images/lCard.jpg";
+import NewsImg3 from "../../images/money.jpg";
+import { BLOGS_COLLECTION_NAME, db } from "../../lib/firebase";
+import { formatBlogDate } from "../utils/formatDate";
+import BlogCardContainer from "./BlogCardContainer";
+import { Blog } from "./types";
 
-// type Props = {};
+const blogContent: Blog[] = [
+  {
+    id: "1",
+    title: "Creating Tomorrow's Business Solutions Today",
+    introductory:
+      "In today's fast-paced business landscape, staying ahead of the curve is crucial for success. NextGen",
+    content:
+      " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim natus est accusantium unde deleniti autem, labore quo, doloremque itaque ad a sit amet reprehenderit. Eligendi molestiae necessitatibus tempora at doloremque officia pariatur corporis iste cum, ipsa consequuntur, aperiam obcaecati eius? Dolores explicabo laboriosam provident officiis debitis magnam, tempora aperiam odit ab ex magni iusto minus, atque architecto! Non ipsam quasi amet doloribus corrupti voluptatem neque id nesciunt ad eum. Consequatur temporibus dolore voluptas, delectus dolorem, qui quas fuga voluptate quod iste vel impedit. Dicta repellat aspernatur quasi ipsum doloribus blanditiis mollitia ab nisi, voluptatem nam, optio voluptatum veritatis, fugit ex?",
+    image: NewsImg,
+    timestamp: "2022-10-01T10:00:00Z",
+    views: 1,
+    likes: 1,
+    comments: [],
+  },
+  {
+    id: "2",
+    title: "Unless the power of tech for business success",
+    introductory:
+      "In today's rapidly evolving business landscape, staying ahead of the competition requires a harmonious blend",
+    content:
+      " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim natus est accusantium unde deleniti autem, labore quo, doloremque itaque ad a sit amet reprehenderit. Eligendi molestiae necessitatibus tempora at doloremque officia pariatur corporis iste cum, ipsa consequuntur, aperiam obcaecati eius? Dolores explicabo laboriosam provident officiis debitis magnam, tempora aperiam odit ab ex magni iusto minus, atque architecto! Non ipsam quasi amet doloribus corrupti voluptatem neque id nesciunt ad eum. Consequatur temporibus dolore voluptas, delectus dolorem, qui quas fuga voluptate quod iste vel impedit. Dicta repellat aspernatur quasi ipsum doloribus blanditiis mollitia ab nisi, voluptatem nam, optio voluptatum veritatis, fugit ex?",
+    image: NewsImg2,
+    timestamp: "2022-10-01T10:00:00Z",
+    views: 1,
+    likes: 1,
+    comments: [],
+  },
+  {
+    id: "1",
+    title: "Revolutionize your business with cutting edge tech solutions",
+    introductory:
+      "In today's fast-paced business landscape, staying ahead of the curve is essential to success. Embracing",
+    content:
+      " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim natus est accusantium unde deleniti autem, labore quo, doloremque itaque ad a sit amet reprehenderit. Eligendi molestiae necessitatibus tempora at doloremque officia pariatur corporis iste cum, ipsa consequuntur, aperiam obcaecati eius? Dolores explicabo laboriosam provident officiis debitis magnam, tempora aperiam odit ab ex magni iusto minus, atque architecto! Non ipsam quasi amet doloribus corrupti voluptatem neque id nesciunt ad eum. Consequatur temporibus dolore voluptas, delectus dolorem, qui quas fuga voluptate quod iste vel impedit. Dicta repellat aspernatur quasi ipsum doloribus blanditiis mollitia ab nisi, voluptatem nam, optio voluptatum veritatis, fugit ex?",
+    image: NewsImg3,
+    timestamp: "2022-10-01T10:00:00Z",
+    views: 1,
+    likes: 1,
+    comments: [],
+  },
+];
 
-const Blog = () => {
-  const [heart, setHeart] = useState(false);
-  const [blogs, setBlogs] = useState<BlogType[] | []>([]);
+async function Page() {
+  const getBlogs = async () => {
+    const blogsCollection = collection(db, BLOGS_COLLECTION_NAME);
+    const querySnapshot = await getDocs(blogsCollection);
+    const blogData: Blog[] = [];
 
-  useEffect(() => {
-    const getBlogs = async () => {
-      // fetch blogs
-      const response = await getAllBlogDocuments();
-      setBlogs(response);
-    }
+    querySnapshot.forEach((doc) => {
+      blogData.push({ ...doc.data(), id: doc.id } as Blog);
+    });
 
-    getBlogs();
-  }, [])
+    return blogData;
+  };
+  const items = await getBlogs();
+
+  const blogs = items && items.length > 0 ? items : blogContent;
+
   return (
-    <motion.section
-      initial={{
-        opacity: 0,
-      }}
-      whileInView={{
-        opacity: 1,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 2,
-        ease: "easeOut",
-      }}
-      id="all-posts"
-      className="md:mx-[8rem] xl:mx-[14rem]"
-    >
-      <div className="flex justify-between px-5 py-2 bg-[rgb(23,13,242)] md:bg-white">
-        <div className="w-auto">
-          <div className="h-full flex items-center">
-            <span className="text-white md:hidden">Blog</span>
-            <span className="hidden md:inline-block">All Posts</span>
+    <>
+      <head>
+        <title>Blog | Zidane Estates LLC</title>
+      </head>
+
+      <WrapperContainer>
+        <div className="mt-5 md:mt-9 md:w-[85%] lg:w-[62%] mx-auto md:pb-20 pb-10 animate-fadeIn">
+          <div className="flex items-center justify-between">
+            <Link
+              href={"/blog"}
+              className="hover:text-primary transition-all duration-200 ease-in-out text-sm"
+            >
+              All Posts
+            </Link>
+
+            <SignUpButton />
+          </div>
+
+          <div className="mt-8 flex flex-col gap-7">
+            {blogs.map((content) => (
+              <BlogCardContainer key={content.id} blog={content}>
+                <div className="w-full md:w-[48%] h-1/2 md:h-full  ">
+                  <Image
+                    src={content.image}
+                    alt="image"
+                    height={100}
+                    width={100}
+                    className="w-full h-full object-cover max-h-[340px]"
+                  />
+                </div>
+
+                <div className="md:w-1/2 py-5 px-6 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-2 mb-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="size-9 p-2 bg-gray-500 text-gray-300 rounded-full"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <div className="flex flex-col items-center p-0 gap-0 m-0">
+                        <p className="self-start text-xs font-medium cursor-pointer">
+                          techvanb
+                        </p>
+                        <span className="flex items-center gap-2 text-xs font-medium">
+                          <p>
+                            {formatBlogDate(content.timestamp).formattedDate}
+                          </p>
+                          <p>.</p>
+                          <p>
+                            {formatBlogDate(content.timestamp).timeAgoString}
+                          </p>
+                        </span>
+                      </div>
+                    </div>
+
+                    <h1 className="text-[22px] md:text-[28px] leading-9 text-[#343434] font-light mb-3 font-syne group-hover:text-primary transition-all duration-150 ease-in-out ">
+                      {content.title}
+                    </h1>
+
+                    <h5 className="text-[#343434] text-base w-[90%] transition-all duration-150 ease-in-out cursor-pointer group-hover:text-primary">
+                      {content.introductory.length > 150
+                        ? `${content.introductory.substring(0, 150)}...`
+                        : content.introductory}
+                    </h5>
+                  </div>
+
+                  <div className="flex items-center justify-between border-t border-t-gray-400 pt-5">
+                    <div className="flex gap-3 text-xs">
+                      <p className="cursor-pointer">{content.views} views</p>
+                      <p className="cursor-pointer">
+                        {content.comments.length ?? 0} comments
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-5">
+                      <div className="flex item-center justify-center gap-1 text-gray-600 cursor-pointer">
+                        <p className="text-sm text-white"> {content.likes} </p>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-5 text-red-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </BlogCardContainer>
+            ))}
           </div>
         </div>
-
-        <div className="self-center">
-          <Link
-            href=""
-            className="inline-block px-8 py-2 border border-[rgb(23,13,242)]"
-          >
-            <span className="text-white md:text-[rgb(23,13,242)]">
-              Log in/ Sign Up
-            </span>
-          </Link>
-        </div>
-      </div>
-
-      <div className="">
-        <div className="flex flex-col gap-y-7 md:mt-5 md:w-[95%] md:mx-auto">
-          {blogs.length > 0 && blogs.map((_, index) => (
-            <div
-              key={index}
-              className="flex flex-col lg:flex-row"
-            >
-              <div className="basis-1/2 ">
-                <Image
-                  src={_.blogImage as string}
-                  layout="responsive"
-                  width={443}
-                  height={443}
-                  alt="form-listings-to-key-img"
-                  className="h-full"
-                />
-              </div>
-              <div className="basis-1/2 px-9 py-6">
-                <div className="flex justify-between pb-3">
-                  <div className="mr-[2.43rem] flex justify-between">
-                    <div className="self-center">
-                      <AvatarIcon className="h-8 w-8" />
-                    </div>
-
-                    <div className="flex flex-col ml-1">
-                      <div className="flex text-xs">
-                        <span>{_.author}</span>
-                        <span className="self-center ml-1">
-                          <Crown className="h-3 w-3" />
-                        </span>
-                      </div>
-                      <div className="flex text-xs">
-                        <span className="self-center">May 25</span>
-                        <span className="self-center">
-                          <Dot />
-                        </span>
-                        <span className="self-center">{_.readingTime} min</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="ml-auto cursor-pointer">
-                    <EllipsisVertical />
-                  </div>
-                </div>
-                <div className="group">
-                  <div className="group-hover:text-[rgb(23,13,242)] transition-all">
-                    <Link href={`blog/${_.id}`}>
-                      <p className="text-[1.8rem] font-normal font-syne">
-                        {_.blogTopic}
-                      </p>
-                    </Link>
-                  </div>
-                  <div className="line-clamp-3 mt-4 cursor-pointer group-hover:text-[rgb(23,13,242)]">
-                    <p className="font-questrial">
-                      {_.blogContents1}
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-3 mt-11 text-xs">
-                  <div className="mb-4 border-t-[2px] border-[rgb(161,156,161)]" />
-                  <div className="flex justify-between">
-                    <div className="flex gap-x-4 text-xs">
-                      <span>{_.views} views</span>
-                      <span className="cursor-pointer hover:text-[rgb(23,13,242)] transition-all">
-                        {_.comments?.length} comments
-                      </span>
-                    </div>
-                    <div className="flex items-center cursor-pointer">
-                      <span className="ml-2">{_.likes}</span>
-                      <Heart
-                        onClick={() => setHeart((prevVal) => !prevVal)}
-                        className={`w-4 h-4 ml-1 ${
-                          heart && "text-red-600 fill-red-600"
-                        } transition-all`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </motion.section>
+      </WrapperContainer>
+    </>
   );
-};
+}
 
-export default Blog;
+export default Page;

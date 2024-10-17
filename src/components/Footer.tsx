@@ -19,7 +19,7 @@ export default function Footer() {
       }}
       className="bg-white py-16 md:py-32 "
     >
-      <WrapperContainer className="flex flex-col  md:flex-row justify-between md:items-start md:mr-32">
+      <WrapperContainer className="flex flex-col  md:flex-row justify-between md:items-start md:pr-32">
         {/* Left Section */}
         <div>
           <h2 className="text-3xl font-light mb-10 md:mb-4 font-syne">
