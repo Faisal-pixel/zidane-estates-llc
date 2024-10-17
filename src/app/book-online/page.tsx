@@ -1,9 +1,9 @@
 "use client";
+import WrapperContainer from "@/components/WrapperContainer";
 import BuyerConsultation from "@/images/buyerConsultation.jpg";
 import NewConstruction from "@/images/newConstructionConsult.jpg";
 import PropertyConsultation from "@/images/propertyConsultation.jpg";
 import RentalPropety from "@/images/rentalPropertyTour.jpg";
-import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function BookOnline() {
@@ -44,38 +44,26 @@ export default function BookOnline() {
         <title>Book Online | Zidane Estates LLC</title>
       </head>
 
-      <motion.div
-        initial={{
-          opacity: 0,
-        }}
-        whileInView={{
-          opacity: 1,
-        }}
-        viewport={{
-          once: true,
-        }}
-        transition={{
-          duration: 2,
-          ease: "easeOut",
-        }}
-        className="w-[80%] lg:w-[60%] mx-auto"
-      >
-        <div className="container mx-auto py-12">
+      <WrapperContainer>
+        <div className="mt-5 md:mt-24 md:w-[85%] lg:w-[62%] mx-auto md:pb-20 pb-10 animate-fadeIn">
           <h1 className="text-3xl text-center font-syne mb-10">Our Services</h1>
-
           <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-8">
             {services.map((service) => (
               <div
                 key={service.id}
-                className="bg-white md:max-h-[28.96rem] border border-[rgb(0,0,0,0.2)] overflow-hidden"
+                className="bg-white md:min-h-[28.96rem] border flex flex-col justify-between pb-8 border-[rgb(0,0,0,0.2)] overflow-hidden"
               >
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  width={500}
-                  height={300}
-                  className="w-full object-cover"
-                />
+                <div className="relative group cursor-pointer">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    width={500}
+                    height={300}
+                    className="w-full object-cover "
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+
                 <div className="p-8">
                   <h2 className="text-xl font-semibold mb-3">
                     {service.title}
@@ -85,15 +73,16 @@ export default function BookOnline() {
                   <p className="text-gray-600 font-bold mb-4">
                     {service.price}
                   </p>
-                  <button className="bg-[rgb(23,13,242)] mt-5 text-white py-2 px-4 hover:bg-blue-700 transition duration-300">
-                    Book Now
-                  </button>
                 </div>
+
+                <button className="bg-[rgb(23,13,242)] mt-5 mx-8 text-white py-2 px-4 hover:bg-blue-700 transition duration-300 w-fit">
+                  Book Now
+                </button>
               </div>
             ))}
           </div>
         </div>
-      </motion.div>
+      </WrapperContainer>
     </>
   );
 }

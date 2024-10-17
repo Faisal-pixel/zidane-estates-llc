@@ -43,7 +43,7 @@ function Login({ closeModal }: { closeModal: () => void }) {
         );
       }
 
-      console.log(userCredential)
+      console.log(userCredential);
 
       closeModal();
     } catch (error: any) {
@@ -86,18 +86,18 @@ function Login({ closeModal }: { closeModal: () => void }) {
   };
 
   return (
-    <div className=" flex  flex-col z-30">
-      <h1 className="text-4xl font-bold text-center">
+    <div className="flex flex-col z-30">
+      <h1 className="text-[48px] font-light text-center font-syne mb-1">
         {type === "login" ? "Log In" : "Sign Up"}
       </h1>
 
       {type === "login" && (
-        <p className="mt-5 text-base text-center">
+        <p className="text-lg text-center">
           New to this site?{" "}
           <button
             type="button"
             onClick={() => setType("signup")}
-            className="hover:scale-110 transition-all duration-200 ease-in-out text-primary underline underline-offset-2 font-medium"
+            className="hover:scale-110 transition-all duration-200 ease-in-out text-primary font-light ml-1"
           >
             Sign Up
           </button>
@@ -105,17 +105,18 @@ function Login({ closeModal }: { closeModal: () => void }) {
       )}
 
       {type === "signup" && (
-        <p className="mt-5 text-base text-center">
-          Already Have an Account?{" "}
+        <p className="text-lg text-center">
+          Already a Member?{" "}
           <button
             type="button"
             onClick={() => setType("login")}
-            className="hover:scale-110 transition-all duration-200 ease-in-out text-primary underline underline-offset-2 font-medium"
+            className="hover:scale-110 transition-all duration-200 ease-in-out text-primary font-light ml-1"
           >
-            Login
+            Log In
           </button>
         </p>
       )}
+
       {!loginWithEmail && (
         <div>
           <button
@@ -167,8 +168,8 @@ function Login({ closeModal }: { closeModal: () => void }) {
             <span></span>
           </button>
 
-          <div className="border-b border-white h-[11px] text-center w-full my-7">
-            <span className="bg-black px-3">or</span>
+          <div className="border-b border-gray-300 h-[11px] text-center w-full my-7">
+            <span className=" px-3">or</span>
           </div>
 
           <button
@@ -190,7 +191,8 @@ function Login({ closeModal }: { closeModal: () => void }) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border-b outline-none bg-transparent py-1"
+                autoFocus
+                className="border-b border-b-gray-300 focus:border-b-primary outline-none bg-transparent py-1 transition-all duration-200 ease-in-out"
                 required
               />
             </div>
@@ -201,7 +203,7 @@ function Login({ closeModal }: { closeModal: () => void }) {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="border-b outline-none bg-transparent py-1"
+                className="border-b border-b-gray-300 focus:border-b-primary outline-none bg-transparent py-1 transition-all duration-200 ease-in-out"
                 required
               />
             </div>
@@ -214,9 +216,9 @@ function Login({ closeModal }: { closeModal: () => void }) {
               Forgot Password?
             </Link>
             <button
-              disabled={loading}
+              disabled={loading || !email || !password}
               type="submit"
-              className={`mt-5 w-full py-3 bg-primary text-black ${
+              className={`mt-5 w-full py-3 bg-primary disabled:bg-[rgba(217,217,217,0.5)] disabled:pointer-events-none disabled:cursor-default text-white ${
                 loading ? "animate-pulse" : ""
               }`}
             >
@@ -224,8 +226,8 @@ function Login({ closeModal }: { closeModal: () => void }) {
             </button>
           </form>
 
-          <div className="border-b border-white h-[11px] text-center w-full my-7">
-            <span className="bg-black px-3">
+          <div className="border-b border-gray-300 h-[11px] text-center w-full my-7">
+            <span className=" px-3">
               or {type === "login" ? "log in" : "sign up"} with
             </span>
           </div>

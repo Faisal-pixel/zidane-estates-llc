@@ -15,33 +15,38 @@ function SignUpButton() {
     const [authUser, setAuthUser] = useState<Auth>(auth)
 
     return (
-        <>
-            {authUser.currentUser && (
-                <button
-                    onClick={() => {
-                        signOut(auth)
-                        setAuthUser({ ...authUser, currentUser: null })
-                    }}
-                    className="border border-primary text-primary bg-none outline-none px-6 text-sm py-2 transition-all duration-300 ease-in-out hover:bg-primary hover:text-black"
-                >
-                    Signout
-                </button>
-            )}
+      <>
+        {authUser.currentUser && (
+          <button
+            onClick={() => {
+              signOut(auth);
+              setAuthUser({ ...authUser, currentUser: null });
+            }}
+            className="border border-primary text-primary bg-none outline-none px-6 text-sm py-2 transition-all duration-300 ease-in-out hover:bg-primary hover:text-black"
+          >
+            Signout
+          </button>
+        )}
 
-            {!authUser.currentUser && (
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className="border border-primary cursor-pointer text-primary bg-none outline-none px-6 py-2 text-sm transition-all  duration-300 ease-in-out hover:bg-primary hover:text-white"
-                >
-                    Log in / Sign up
-                </button>
-            )}
+        {!authUser.currentUser && (
+          <button
+            onClick={() => setIsOpen(true)}
+            className="border border-primary cursor-pointer text-primary bg-none outline-none px-6 py-2 text-sm transition-all  duration-300 ease-in-out hover:bg-primary hover:text-white"
+          >
+            Log in / Sign up
+          </button>
+        )}
 
-            <Modal isOpen={isOpen} onClose={closeModal} modalOverlayClassname='!bg-opacity-100' modalClassName='!bg-black'>
-                <Login closeModal={closeModal} />
-            </Modal>
-        </>
-    )
+        <Modal
+          isOpen={isOpen}
+          onClose={closeModal}
+          modalOverlayClassname="!bg-opacity-100 !bg-white"
+          modalClassName="!bg-white max-w-sm "
+        >
+          <Login closeModal={closeModal} />
+        </Modal>
+      </>
+    );
 }
 
 export default SignUpButton

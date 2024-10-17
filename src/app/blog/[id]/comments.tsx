@@ -6,7 +6,7 @@ import InViewWrapper from "@/app/utils/InViewWrapper";
 import TextArea from "@/components/form/TextArea";
 import Login from "@/components/Login";
 import Modal from "@/components/Modal";
-import { db } from "@/lib/firebase";
+import { BLOGS_COLLECTION_NAME, db } from "@/lib/firebase";
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
@@ -56,7 +56,7 @@ export default function CommentCompononent({ blog }: { blog: Blog }) {
     if (comment.trim() === "" || !currentUser) return;
 
     try {
-      const blogRef = doc(db, "blogs", blog.id);
+      const blogRef = doc(db, BLOGS_COLLECTION_NAME, blog.id);
 
       const blogDoc = await getDoc(blogRef);
 
@@ -100,8 +100,8 @@ export default function CommentCompononent({ blog }: { blog: Blog }) {
       <Modal
         isOpen={openAuthModal}
         onClose={closeModal}
-        modalOverlayClassname="!bg-opacity-100"
-        modalClassName="!bg-black"
+        modalOverlayClassname="!bg-opacity-100 !bg-white"
+        modalClassName="!bg-white max-w-sm "
       >
         <Login closeModal={completedAuthentication} />
       </Modal>
@@ -110,8 +110,8 @@ export default function CommentCompononent({ blog }: { blog: Blog }) {
         className={`border-animate border-bottom pb-6`}
         style={{ "--border-color": "#6B7280" }}
       >
-        <div className="flex items-center justify-between">
-          <h1 className="font-bold tracking-wide text-base">
+        <div className="flex items-center justify-between border-b border-b-gray-300 pb-3">
+          <h1 className="font-light text-[#343434] tracking-wide text-base">
             {blog.comments.length} Comments
           </h1>
           {currentUser && currentUser.photoURL && (
@@ -134,8 +134,8 @@ export default function CommentCompononent({ blog }: { blog: Blog }) {
             placeholder="Write a comment..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
-            rows={4}
-            className="border-[rgba(36,36,36)]"
+            rows={comment.trim() ? 3 : 1}
+            textAreaClassName="border-b-gray-300 hover:border-[#343434] placeholder:text-[#343434]  "
           />
 
           {currentUser && (
@@ -165,7 +165,7 @@ export default function CommentCompononent({ blog }: { blog: Blog }) {
                 <button
                   disabled={!comment.trim() || publishing}
                   type="submit"
-                  className={`bg-primary text-black py-[6px] px-4 hover:text-white disabled:bg-[rgba(217,217,217,0.5)] disabled:pointer-events-none disabled:cursor-default`}
+                  className={`bg-primary text-white py-[6px] px-4 hover:bg-opacity-25 disabled:bg-[rgba(217,217,217,0.5)] disabled:pointer-events-none disabled:cursor-default`}
                 >
                   {publishing ? "Publishing..." : "Publish"}
                 </button>
@@ -186,7 +186,7 @@ export default function CommentCompononent({ blog }: { blog: Blog }) {
               <button
                 disabled={!comment.trim() || publishing}
                 type="submit"
-                className={`bg-primary text-black py-[6px] px-4 hover:text-white disabled:bg-[rgba(217,217,217,0.5)] disabled:pointer-events-none disabled:cursor-default`}
+                className={`bg-primary text-white py-[6px] px-4 hover:bg-opacity-25 disabled:bg-[rgba(217,217,217,0.5)] disabled:pointer-events-none disabled:cursor-default`}
               >
                 {publishing ? "Publishing..." : "Publish"}
               </button>

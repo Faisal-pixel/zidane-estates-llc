@@ -2,7 +2,7 @@ import { formatBlogDate } from "@/app/utils/formatDate";
 import InViewWrapper from "@/app/utils/InViewWrapper";
 import SignUpButton from "@/components/SignUpButton";
 import WrapperContainer from "@/components/WrapperContainer";
-import { db } from "@/lib/firebase";
+import { BLOGS_COLLECTION_NAME, db } from "@/lib/firebase";
 import { blogService } from "@/lib/firebase/blogService";
 import { doc, getDoc } from "firebase/firestore";
 import { NotFoundBoundary } from "next/dist/client/components/not-found-boundary";
@@ -20,7 +20,7 @@ export default async function BlogPage({ params }: { params: { id: string } }) {
     return <div>Blog ID not found</div>;
   }
 
-  const blogRef = doc(db, "blogs", id);
+  const blogRef = doc(db, BLOGS_COLLECTION_NAME, id);
   const blogDoc = await getDoc(blogRef);
 
   if (!blogDoc.exists())
@@ -170,7 +170,7 @@ export default async function BlogPage({ params }: { params: { id: string } }) {
             See all
           </Link>
 
-          <div className="border border-[rgba(36,36,36)] mt-10 mb-4 pt-5 pb-10 ">
+          <div className="border border-[#FFEBFFBF] my-5 pt-5 pb-10 ">
             <div className="w-[80%] mx-auto">
               <Comment blog={blog} />
             </div>
