@@ -1,4 +1,4 @@
-import HeroImg from "@/images/heros.jpg";
+import HeroImg from "@/images/heros2.webp";
 import Image from "next/image";
 import WrapperContainer from "./WrapperContainer";
 

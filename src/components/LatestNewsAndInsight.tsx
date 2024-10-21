@@ -16,7 +16,7 @@ const LatestNewsAndInsight = ({ blogs }: { blogs: Blog[] }) => {
       transition={transition}
     >
       <WrapperContainer>
-        <h2 className="text-[27px] md:text-[64px]  my-5 md:my-10 font-syne">
+        <h2 className="text-[27px] md:text-[64px]  my-5 md:my-12 font-syne">
           LATEST NEWS & INSIGHTS
         </h2>
 
