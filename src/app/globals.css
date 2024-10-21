@@ -14,6 +14,17 @@ body {
   /* font-family: "Helvetica Neue LT W01 45 Light", "HelveticaNeueW02-45Ligh", "HelveticaNeueW10-45Ligh", sans-serif; */
 }
 
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
