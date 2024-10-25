@@ -1,4 +1,3 @@
-// This is basically the cards in the Latest News And Insights section
 "use client";
 import { Blog } from "@/app/blog/types";
 import Link from "next/link";
@@ -10,57 +9,6 @@ type Props = {
 const LCards = ({ blog }: Props) => {
   return (
     <>
-      {/* // <div className="border basis-1/3 border-[#170DF2] sm:mx-24 md:mx-0">
-    //   <div className="flex gap-x-6">
-    //     <Image
-    //       src={blog.image}
-    //       className="w-full"
-    //       alt={blog.title}
-    //       width={443}
-    //       height={443}
-    //     />
-    //   </div>
-
-    //   <div className="flex flex-col px-6 pt-7 pb-6">
-    //     <div className="flex mr-11 pb-3">
-    //       <span className="text-xs">techvanb</span>
-    //     </div>
-
-    //     <div className="hover:text-[#170DF2] transition-all duration-200 ease-in-out cursor-pointer line-clamp-4 mb-3 text-[#414141] tracking-wide">
-    //       <p className=" text-[22px] font-light  mb-2 ">{blog.title}</p>
-    //       <div className="text-[15px] font-light tracking-wide">
-    //         <span
-    //           style={{
-    //             display: "-webkit-box",
-    //             WebkitLineClamp: 2,
-    //             WebkitBoxOrient: "vertical",
-    //             overflow: "hidden",
-    //           }}
-    //         >
-    //           {blog.introductory}
-    //         </span>
-    //       </div>
-    //     </div>
-
-    //     <div className="flex justify-between border-t border-t-gray-300 pt-3 ">
-    //       <div className="flex">
-    //         <Eye className="mr-[0.5rem] w-5 h-5" />
-    //         <span className="text-sm self-center">{blog.views}</span>
-    //       </div>
-    //       <div className="flex items-center">
-    //         <span className="ml-2"></span>
-
-    //         <Heart
-    //           onClick={() => setHeart((prevVal) => !prevVal)}
-    //           className={`size-4 ${
-    //             heart && "text-red-600 fill-red-600"
-    //           } transition-all  text-red-500`}
-    //         />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div> */}
-
       <Link
         href={`/blog/${blog.id}`}
         className="border cursor-pointer border-primary w-full group md:w-1/3 lg:min-h-[750px]"
@@ -69,7 +17,7 @@ const LCards = ({ blog }: Props) => {
         <picture id="multi_picture_348fbbaf-a794-48a2-8509-236acfe9944b">
           <source srcSet={blog.image as string} type="image/webp" />
           <img
-            alt="Maximizing Your Rental Property Income: Expert Tips"
+            alt={blog.title}
             id="348fbbaf-a794-48a2-8509-236acfe9944b"
             className="lg:h-[65%] min-h-64 w-full"
             data-hook="gallery-item-image-img"
