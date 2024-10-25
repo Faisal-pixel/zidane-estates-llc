@@ -1,7 +1,6 @@
 // This is basically the cards in the Latest News And Insights section
 "use client";
 import { Blog } from "@/app/blog/types";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -67,7 +66,6 @@ const LCards = ({ blog }: Props) => {
         className="border cursor-pointer border-primary w-full group md:w-1/3 lg:min-h-[750px]"
         key={blog.id}
       >
-       
         <picture id="multi_picture_348fbbaf-a794-48a2-8509-236acfe9944b">
           <source srcSet={blog.image as string} type="image/webp" />
           <img
