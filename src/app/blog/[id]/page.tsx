@@ -14,6 +14,47 @@ import { Blog } from "../types";
 import Comment from "./comments";
 import LikeButton from "./likes";
 
+function splitIntoParagraphs(text: string): string[] {
+  // Define phrases that may indicate a new paragraph
+  const splitMarkers = [
+    "Another essential tip",
+    "In addition",
+    "Consider",
+    "Finally",
+    "By implementing",
+    "Furthermore",
+  ];
+
+  // Split text into sentences
+  const sentences = text.split(/(?<=[.!?])\s+/); // Split on punctuation followed by whitespace
+  const paragraphs: string[] = [];
+  let paragraph = "";
+
+  sentences.forEach((sentence) => {
+    // Check for split marker in the current sentence
+    const hasSplitMarker = splitMarkers.some((marker) =>
+      sentence.toLocaleLowerCase().includes(marker.toLocaleLowerCase())
+    );
+
+    if (hasSplitMarker || paragraph.length + sentence.length > 500) {
+      if (paragraph.trim()) {
+        paragraphs.push(paragraph.trim());
+      }
+      paragraph = sentence; 
+    } else {
+      paragraph += ` ${sentence}`; 
+    }
+  });
+
+  // Push the last paragraph if there's leftover content
+  if (paragraph.trim()) {
+    paragraphs.push(paragraph.trim());
+  }
+
+  return paragraphs;
+}
+
+
 export default async function BlogPage({ params }: { params: { id: string } }) {
   const id = params.id;
   if (!id) {
@@ -39,6 +80,7 @@ export default async function BlogPage({ params }: { params: { id: string } }) {
 
   const header_url = headersList.get("x-url") || "";
 
+  const paragraphs = splitIntoParagraphs(blog.content);
   return (
     <>
       <head>
@@ -101,9 +143,18 @@ export default async function BlogPage({ params }: { params: { id: string } }) {
                 className="h-[300px] md:h-[500px] w-full object-cover my-5"
               />
 
-              <p className="mt-5 md:mt-10 text-[#343434] font-light leading-7 text-lg">
+              {paragraphs.map((para, index) => (
+                <p
+                  key={index}
+                  className="mt-5 md:mt-10 text-[#343434] font-light leading-7 text-lg"
+                >
+                  {para.trim()}
+                </p>
+              ))}
+
+              {/* <p className="mt-5 md:mt-10 text-[#343434] font-light leading-7 text-lg">
                 {blog.content}
-              </p>
+              </p> */}
 
               <div className="flex items-center gap-8 mt-4 border-y border-y-gray-400 py-5">
                 <svg
