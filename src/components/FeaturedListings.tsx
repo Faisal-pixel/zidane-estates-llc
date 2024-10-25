@@ -1,10 +1,10 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
-import FifthCarouselImg from "@/images/five.jpg";
-import FourthCarouselImg from "@/images/four.jpg";
-import FirstCarouselImg from "@/images/one.jpg";
-import ThirdCarouselImg from "@/images/three.jpg";
-import SecondCarouselImg from "@/images/two.jpg";
+import FifthCarouselImg from "@/images/apartment5.webp";
+import FourthCarouselImg from "@/images/apartment4.webp";
+import FirstCarouselImg from "@/images/apartment1.jpg";
+import ThirdCarouselImg from "@/images/apartment3.webp";
+import SecondCarouselImg from "@/images/apartment2.webp";
 import { motion } from "framer-motion";
 
 import { fadeInAnimation } from "@/app/animation";
@@ -101,7 +101,7 @@ export function CarouselSize() {
                 <Card>
                   <CardContent className="flex items-center justify-center ">
                     <div
-                      className="relative group w-full h-[15rem] md:h-[25rem] lg:h-[36.75rem] overflow-hidden bg-cover bg-no-repeat"
+                      className="relative group w-full h-[15rem] md:h-[25rem] lg:h-[36.75rem] overflow-hidden bg-cover bg-no-repeat bg-center"
                       style={{
                         backgroundImage: `url(${_.imageUrl})`,
                       }}

@@ -64,19 +64,25 @@ const LCards = ({ blog }: Props) => {
 
       <Link
         href={`/blog/${blog.id}`}
-        className="border cursor-pointer border-primary w-full group md:w-1/3"
+        className="border cursor-pointer border-primary w-full group md:w-1/3 lg:min-h-[750px]"
         key={blog.id}
       >
-        <Image
-          src={blog.image}
-          alt="image"
-          width={200}
-          height={200}
-          className="lg:h-[60%] min-h-64 w-full object-cover"
-        />
+       
+        <picture id="multi_picture_348fbbaf-a794-48a2-8509-236acfe9944b">
+          <source srcSet={blog.image as string} type="image/webp" />
+          <img
+            alt="Maximizing Your Rental Property Income: Expert Tips"
+            id="348fbbaf-a794-48a2-8509-236acfe9944b"
+            className="lg:h-[65%] min-h-64 w-full"
+            data-hook="gallery-item-image-img"
+            data-idx="1"
+            src={blog.image as string}
+            loading="eager"
+          />
+        </picture>
 
-        <div className="mt-6 px-6 pb-3 text-black">
-          <h5 className="text-gray-600 text-sm">techvanb</h5>
+        <div className="mt-8 px-6 pb-3 text-black">
+          <h5 className="text-[#343434] font-light text-xs ">techvanb</h5>
 
           <h1 className="capitalize mt-5 lg:leading-8 tracking-wide font-light group-hover:text-primary text-[#343434] min-h-12 text-base lg:text-[23px]">
             {blog.title}
@@ -94,7 +100,7 @@ const LCards = ({ blog }: Props) => {
             {blog.introductory}
           </p>
 
-          <div className="flex items-center justify-between border-t border-t-[#94A3B8] pt-5 mt-5">
+          <div className="flex items-center justify-between border-t border-t-[#94A3B8] pt-5 mt-2">
             <div className="flex item-center justify-center gap-1 text-black">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
